@@ -2,9 +2,9 @@ export const edges = [
 
 
     // Hansa
-    { source: 'Groningen', target: 'Emden', houses: 3, type: 'edge'},
-    { source: 'Emden', target: 'Osnabruck', houses: 3, type: 'edge'},
-    { source: 'Kampen', target: 'Osnabruck', houses: 4, type: 'edge'},
+    { id: 0, source: 'Groningen', target: 'Emden', houses: 3, type: 'edge'},
+    { id: 1, source: 'Emden', target: 'Osnabruck', houses: 3, type: 'edge'},
+    { id: 2, source: 'Kampen', target: 'Osnabruck', houses: 4, type: 'edge'},
 
 ]
 
