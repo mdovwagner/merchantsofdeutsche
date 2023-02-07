@@ -25,13 +25,22 @@ const theme = createTheme({
 export class MerchantsOfDeutscheTable extends React.Component {
     constructor(props) {
         super(props);
+        console.log(props.G)
         this.boardOpen = false;
         this.board = React.createRef();
     }
 
+    playCube = (edge, i) => {
+        console.log("Place " + edge + i);
+        this.props.moves.Place(edge, i);
+    }
+
     render() {
         return (
-            <Board />
+            <Board 
+                board={this.props.G.board} 
+                playCube = {this.playCube}
+            />
         );
     }
 }

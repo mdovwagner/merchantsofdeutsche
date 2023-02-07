@@ -5,6 +5,9 @@ import { cities } from '../static/cities';
 import { edgeLookup, edges } from '../static/edges';
 import { playerColors, priviledgeColors } from '../static/playerColors';
 
+import { City } from './City';
+import { Edge } from './Edge';
+
 const data = {
     nodes: Object.values(cities),
     links: edges
@@ -15,6 +18,11 @@ export class Board extends React.Component {
     constructor(props) {
         super(props);
         // create a ref to store the textInput DOM element
+
+        this.state = { selectedOnEdges: {"KampenOsnabruck": 1}, selectedOnCities: {} };
+
+
+
         this.cityRefs = {}
         for (let city in cities) {
             this.cityRefs[city] = React.createRef();
@@ -25,43 +33,12 @@ export class Board extends React.Component {
         }
     }
 
-    renderEdge(edge, i) {
-        const edgeStyle = {
-            strokeWidth: 2,
-            stroke: "black"
-        }
-        const fgStyle = {
-            fill: "#B99976",
-            strokeWidth: 2, 
-            stroke: "black" 
-        }
-        let x1 = cities[edge.source].x;
-        let y1 = cities[edge.source].y;
-        let x2 = cities[edge.target].x;
-        let y2 = cities[edge.target].y;
 
-        let midX = (x1 + x2) / 2; // x1 + (x2-x1) / 2
-        let midY = (y1 + y2) / 2;
-        let margin = 0.25;
-        const numbers = Array.from({ length: edge.houses }, (_, index) => index);
-        const xs = numbers.map((n) => x1 + (x2 - x1) * (n+0.5) / edge.houses);
-        const ys = numbers.map((n) => y1 + (y2 - y1) * (n+0.5) / edge.houses);
-        
-        const radius = 15;
-        const length = radius * 1.4 / 2;
-        
-        return (<svg>
-                <line key={"edge" + i} x1={x1} y1={y1} x2={x2} y2={y2} style={edgeStyle} ref={this.edgeRefs[edge.source + "." + edge.target]} />
-            {numbers.map((n) => 
-            <g>
-                <ellipse style={fgStyle} cx={xs[n]} cy={ys[n]} rx={radius} ry={radius} />
-                <rect x={xs[n] - length} y={ys[n] - length} width={length*2} height={length*2} style={fgStyle} />
-            </g>
-            )}
-            </svg>
-
-        );
+    handleEdgeClick = (edge, i) => {
+        // If current action
+        this.props.playCube(edge.source + edge.target, i);
     }
+
 
     highlightCity(city) {
         Object.values(this.cityRefs).forEach(ref => {
@@ -100,70 +77,6 @@ export class Board extends React.Component {
 
 
 
-
-    renderOffice(city, office, i, citySelected) {
-        let dx = [-45, -25, -5, +15];
-        let dy = [-20, -20, -20, -20];
-        let move = "translate(" + (city.x + dx[i]) + " " + (city.y + dy[i]) + ") scale(0.2)"
-        const officeExists = true;
-        // const officeColor = (playerColors[i] || {}).houseBackground
-        const officeColor = priviledgeColors[office.color]
-        const officeStyle = {
-            fill: officeColor,
-            strokeWidth: 10,
-            stroke: "black",
-            visibility: (officeExists) ? "visible" : "hidden"
-        }
-        return (
-            <g transform={move} style={officeStyle}>
-                <path d="M 2 2 L 98 2 L 98 98 L 2 98 Z" />
-            </g>
-        )
-
-    }
-
-    renderCity(city, i) {
-        const labelStyle = {
-            fill: city.color,
-        }
-        const textStyle = {
-            fontFamily: "Gamja Flower",
-            strokeWidth: 0,
-        }
-        const fgStyle = {
-            fill: "#B99976",
-        }
-        // const citySelected = this.props.selectedCities.includes(city.id);
-        // if (citySelected) {
-        //     labelStyle['stroke'] = 'orangered'
-        //     fgStyle['stroke'] = 'orangered'
-        // }
-        const citySelected = true;
-
-        let textWidth = city.id.length * 8;
-
-        return (<svg key={"city" + i} //onClick={(event) => { this.props.selectCity(city.id) }}
-            // onMouseEnter={e => this.props.highlightCity(city.id)}
-            // onMouseLeave={e => this.unhighlightCity(city.id)}
-            className="node"
-            ref={this.cityRefs[city.id]}
-            style={{ strokeWidth: 2, stroke: "black" }}
-        >
-            {/* <ellipse style={fgStyle} cx={city.x} cy={city.y} rx="40" ry="15" /> */}
-            <rect x={city.x - textWidth / 2} y={city.y + 10} width={textWidth} height="20" style={labelStyle}>{city.id}</rect>
-            <text x={city.x} y={city.y + 25} textAnchor="middle" style={textStyle}>{city.id}</text>
-            {city.offices.map((office, i) => 
-                this.renderOffice(city, office, i, citySelected)
-            )}
-        </svg>
-            // <City
-            //     selectedCities={this.props.selectedCities}
-            //     cityStatus={this.props.cityStatus}
-            //     city={city}
-            // />
-        );
-    }
-
     renderBackground() {
         const bgStyle = {
             fill: "magenta"
@@ -181,6 +94,7 @@ export class Board extends React.Component {
     }
 
     render() {
+        console.log(this.state);
         let scale = 1;
         // const myStage = (this.props.myTurn && (this.props.stage === "score" || this.props.stage === "place"));
         // const oStyle = {
@@ -200,11 +114,23 @@ export class Board extends React.Component {
                 {this.renderBackground()}
                 {/* Edges */}
                 {Object.values(edges).map((edge, i) =>
-                    this.renderEdge(edge, i)
+                    <Edge
+                        ref={this.edgeRefs[edge.source + "." + edge.target]}
+                        board = {this.props.board}
+                        edge = {edge}
+                        index = {i}
+                        // playCube = {this.props.playCube}
+                        handleClick = {this.handleEdgeClick}
+                    />
                 )}
                 {/* Nodes */}
                 {Object.values(cities).map((city, i) =>
-                    this.renderCity(city, i)
+                    <City 
+                        ref={this.cityRefs[city.id]}
+                        board = {this.props.board}
+                        city = {city}
+                        index = {i}
+                    />
                 )}
             </svg>
         </Paper>)
