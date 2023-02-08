@@ -1,5 +1,7 @@
 import React from 'react';
 import { Board } from './Board';
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
@@ -37,10 +39,12 @@ export class MerchantsOfDeutscheTable extends React.Component {
 
     render() {
         return (
-            <Board 
-                board={this.props.G.board} 
-                playCube = {this.playCube}
-            />
+            <DndProvider debugMode={true} backend={HTML5Backend}>
+                <Board 
+                    board={this.props.G.board} 
+                    playCube = {this.playCube}
+                />
+            </DndProvider>
         );
     }
 }

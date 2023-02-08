@@ -11,6 +11,8 @@ export class City extends React.Component {
     constructor(props) {
         super(props);
         // create a ref to store the textInput DOM element
+        this.x = 50;
+        this.y = 40;
     }
 
    
@@ -21,7 +23,7 @@ export class City extends React.Component {
     renderOffice(office, i, citySelected) {
         let dx = [-45, -25, -5, +15];
         let dy = [-20, -20, -20, -20];
-        let move = "translate(" + (this.props.city.x + dx[i]) + " " + (this.props.city.y + dy[i]) + ") scale(0.2)"
+        let move = "translate(" + (this.x + dx[i]) + " " + (this.y + dy[i]) + ") scale(0.2)"
         const officeExists = true;
         const officeColor = priviledgeColors[office.color]
 
@@ -38,7 +40,7 @@ export class City extends React.Component {
             visibility: (officeExists) ? "visible" : "hidden"
         }
         return (
-            <g transform={move} >
+            <g key={"Office"+i} transform={move} >
                 <path style={officeStyle} d="M 2 2 L 98 2 L 98 98 L 2 98 Z" />
                 <path style={playerStyle} d="M 15 15 L 85 15 L 85 85 L 15 85 Z" />
             </g>
@@ -65,24 +67,26 @@ export class City extends React.Component {
         const citySelected = true;
 
         let textWidth = this.props.city.id.length * 8;
-
-        return (<svg key={"city" + this.props.index} //onClick={(event) => { this.props.selectCity(this.props.city.id) }}
+        const top = this.props.city.y;
+        const left = this.props.city.x;
+        return (
+            <div key={"city" + this.props.index} style={{ position: 'absolute', top, left }}>
+            <svg  width={105} height={120}//onClick={(event) => { this.props.selectCity(this.props.city.id) }}
             // onMouseEnter={e => this.props.highlightCity(this.props.city.id)}
             // onMouseLeave={e => this.unhighlightCity(this.props.city.id)}
             style={{ strokeWidth: 2, stroke: "black" }}
         >
-            <ellipse style={fgStyle} cx={this.props.city.x} cy={this.props.city.y} rx="40" ry="15" />
-            <rect x={this.props.city.x - textWidth / 2} y={this.props.city.y + 10} width={textWidth} height="20" style={labelStyle}>{this.props.city.id}</rect>
-            <text x={this.props.city.x} y={this.props.city.y + 25} textAnchor="middle" style={textStyle}>{this.props.city.id}</text>
+            <defs>
+                <style type="text/css">@import url('https://fonts.googleapis.com/css?family=Indie+Flower|Gamja+Flower|Xanh+Mono');</style>
+            </defs>
+            <ellipse style={fgStyle} cx={this.x} cy={this.y} rx="40" ry="15" />
+            <rect x={this.x - textWidth / 2} y={this.y + 10} width={textWidth} height="20" style={labelStyle}>{this.props.city.id}</rect>
+            <text x={this.x} y={this.y + 25} textAnchor="middle" style={textStyle}>{this.props.city.id}</text>
             {this.props.city.offices.map((office, i) =>
                 this.renderOffice(office, i, citySelected)
             )}
         </svg>
-            // <City
-            //     selectedCities={this.props.selectedCities}
-            //     cityStatus={this.props.cityStatus}
-            //     this.props.city={this.props.city}
-            // />
+        </div>
         );
     }
 

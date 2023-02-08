@@ -4,6 +4,7 @@ import React from 'react';
 import { cities } from '../static/cities';
 import { edgeLookup, edges } from '../static/edges';
 import { playerColors, priviledgeColors } from '../static/playerColors';
+import { Trader } from './Trader';
 
 
 
@@ -29,7 +30,10 @@ export class Edge extends React.Component {
             stroke: "black"
         }
 
-        let fills = this.props.board.roads[this.props.edge.source + this.props.edge.target].houses.player.map((p) => {
+        let players = this.props.board.roads[this.props.edge.source + this.props.edge.target].houses.player.map((p) => {
+            return p;
+        })
+        let fills = players.map((p) => {
             return (p) ? playerColors[p].color : "#B99976";
         })
 
@@ -52,15 +56,36 @@ export class Edge extends React.Component {
         const radius = 15;
         const length = radius * 1.4 / 2;
 
-        return (<svg>
-            <line key={"edge" + this.props.index} x1={x1} y1={y1} x2={x2} y2={y2} style={edgeStyle}  />
-            {numbers.map((n) =>
-                <g onClick={(event) => { this.props.handleClick(this.props.edge, "trader", n) }}>
-                    <ellipse style={fgStyle} cx={xs[n]} cy={ys[n]} rx={radius} ry={radius} />
-                    <rect x={xs[n] - length} y={ys[n] - length} width={length * 2} height={length * 2} style={houseStyle} fill={fills[n]} />
-                </g>
+        // const xsInside = 
+        
+        return (<div key={"Edge" + this.props.index} 
+            style={{ position: 'absolute', top: y1, left: x1}}
+            >
+            <svg width={x2-x1+53} height={y2-y1+43}>
+            <line x1={50} y1={40} x2={x2-x1+50} y2={y2-y1+40} style={edgeStyle}  />
+            </svg>
+            {numbers.map((n, i) =>
+                <div key={"n"+i}
+                    style={{ position: 'absolute', top: ys[n]-y1, left: xs[n]-x1}}
+                    >
+                    <svg >
+                    <ellipse style={fgStyle} cx={50} cy={40} rx={radius} ry={radius} />
+                    </svg>
+                
+                </div>
             )}
-        </svg>
+            {numbers.map((n, i) => 
+                <div key={"T" + i} style={{ position: 'absolute', top: ys[n] - y1, left: xs[n] - x1 }}
+                    onClick={(event) => { this.props.handleClick(this.props.edge, "trader", n) }}>
+                <Trader 
+                    x={50-2}
+                    y={40-2}
+                    length={length}
+                    player={players[n]}
+                />
+            </div>
+            )}
+        </div>
 
         );
     }

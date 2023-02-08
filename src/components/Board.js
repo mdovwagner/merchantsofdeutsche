@@ -1,4 +1,5 @@
 import { Paper, Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles'; 
 import React from 'react';
 
 import { cities } from '../static/cities';
@@ -13,38 +14,39 @@ const data = {
     links: edges
 }
 
-export class Board extends React.Component {
-
-    constructor(props) {
-        super(props);
-        // create a ref to store the textInput DOM element
-
-        this.state = { selectedOnEdges: {"KampenOsnabruck": 1}, selectedOnCities: {} };
-
-
-        this.cityRefs = {}
-        for (let city in cities) {
-            this.cityRefs[city] = React.createRef();
-        }
-        this.edgeRefs = {}
-        for (let edge in edges) {
-            this.edgeRefs[edges[edge].source + "." + edges[edge].target] = React.createRef();
-        }
+const useStyles = makeStyles(() => ({
+    root: {
+        position: 'absolute',
+        
     }
+}))
+
+export function Board(props) {
+
+    let classes = useStyles()
+
+    // this.cityRefs = {}
+    // for (let city in cities) {
+    //     this.cityRefs[city] = React.createRef();
+    // }
+    // this.edgeRefs = {}
+    // for (let edge in edges) {
+    //     this.edgeRefs[edges[edge].source + "." + edges[edge].target] = React.createRef();
+    // }
 
 
-    handleEdgeClick = (edge, type, i) => {
+    let handleEdgeClick = (edge, type, i) => {
         // If current action
-        this.props.playCube(edge.source + edge.target, type, i);
+        props.playCube(edge.source + edge.target, type, i);
     }
 
 
-    highlightCity(city) {
+    let highlightCity = (city) => {
         Object.values(this.cityRefs).forEach(ref => {
             ref.current.style.opacity = "100%";
             ref.current.style.stroke = 2;
         });
-        // this.props.selectedCities.forEach(sel => {
+        // props.selectedCities.forEach(sel => {
         //     this.cityRefs[sel].current.style.opacity = "100%";
         // })
         Object.values(this.edgeRefs).forEach(ref => {
@@ -64,7 +66,7 @@ export class Board extends React.Component {
         })
     }
 
-    unhighlightCity(city) {
+    let unhighlightCity = (city) => {
         Object.values(this.cityRefs).forEach(ref => {
             ref.current.style.opacity = "100%";
             ref.current.style.strokeWidth = 2;
@@ -76,7 +78,7 @@ export class Board extends React.Component {
 
 
 
-    renderBackground() {
+    let renderBackground = () => {
         const bgStyle = {
             fill: "magenta"
         }
@@ -92,46 +94,61 @@ export class Board extends React.Component {
         );
     }
 
-    render() {
-        let scale = 1;
-        // const myStage = (this.props.myTurn && (this.props.stage === "score" || this.props.stage === "place"));
-        // const oStyle = {
-        //     opacity: (this.props.myTurn) ? "100%" : "70%",
-        //     borderColor: (myStage) ? "black" : "#987554"
-        // }
-        const oStyle = {
-            opacity: "100%",
-            borderColor: "black"
-        }
-
-        return (<Paper class="section" style={oStyle}>
-            <svg width={650 * scale} height={450 * scale} viewBox="0 0 650 470" >
-                <defs>
-                    <style type="text/css">@import url('https://fonts.googleapis.com/css?family=Indie+Flower|Gamja+Flower|Xanh+Mono');</style>
-                </defs>
-                {this.renderBackground()}
-                {/* Edges */}
-                {Object.values(edges).map((edge, i) =>
-                    <Edge
-                        ref={this.edgeRefs[edge.source + "." + edge.target]}
-                        board = {this.props.board}
-                        edge = {edge}
-                        index = {i}
-                        // playCube = {this.props.playCube}
-                        handleClick = {this.handleEdgeClick}
-                    />
-                )}
-                {/* Nodes */}
-                {Object.values(cities).map((city, i) =>
-                    <City 
-                        ref={this.cityRefs[city.id]}
-                        board = {this.props.board}
-                        city = {city}
-                        index = {i}
-                    />
-                )}
-            </svg>
-        </Paper>)
-
+    let scale = 1;
+    // const myStage = (props.myTurn && (props.stage === "score" || props.stage === "place"));
+    // const oStyle = {
+    //     opacity: (props.myTurn) ? "100%" : "70%",
+    //     borderColor: (myStage) ? "black" : "#987554"
+    // }
+    const oStyle = {
+        opacity: "100%",
+        borderColor: "black"
     }
+
+    return (<Paper class="section" style={oStyle}>
+        <div className={classes.root}>
+            {Object.values(edges).map((edge, i) =>
+                <Edge key={"E" + i}
+                    board={props.board}
+                    edge={edge}
+                    index={i}
+                    // playCube = {props.playCube}
+                    handleClick={handleEdgeClick}
+                />
+            )}
+            {Object.values(cities).map((city, i) =>
+                <City key = {"C"+i}
+                    board = {props.board}
+                    city = {city}
+                    index = {i}
+                />
+            )}
+        </div>
+    {/* return (<Paper class="section" style={oStyle}>
+        <div className={classes.root}>
+        <svg width={650 * scale} height={450 * scale} viewBox="0 0 650 470" >
+            <defs>
+                <style type="text/css">@import url('https://fonts.googleapis.com/css?family=Indie+Flower|Gamja+Flower|Xanh+Mono');</style>
+            </defs>
+            {renderBackground()}
+            {Object.values(edges).map((edge, i) =>
+                <Edge
+                    board = {props.board}
+                    edge = {edge}
+                    index = {i}
+                    // playCube = {props.playCube}
+                    handleClick = {handleEdgeClick}
+                />
+            )}
+            {Object.values(cities).map((city, i) =>
+                <City 
+                    board = {props.board}
+                    city = {city}
+                    index = {i}
+                />
+            )}
+        </svg>
+        </div> */}
+    </Paper>)
+
 }
