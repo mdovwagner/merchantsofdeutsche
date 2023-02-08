@@ -13,15 +13,29 @@ function setupGame(ctx) {
     const numbers = Array.from({ length: 5 }, (_, index) => index);
     const xs = Object.values(cities).map((n) => 2 + (3 - 4) * (1 + 0.5) / 5);
     let board = new BoardModel();
-    board.cities.Groningen[0] = 2 // Player 2 has something in Groningen
-    board.cities.Kampen[1] = 1 // Player 2 has something in Groningen
-    board.cities.Osnabruck[1] = 3 // Player 2 has something in Groningen
 
-    board.roads.GroningenEmden.houses[1] = 2;
-    board.roads.GroningenEmden.houses[2] = 1;
+    // Testing
+    board.cities.Groningen.player[0] = 2 // Player 2 has something in Groningen
+    board.cities.Groningen.type[0] = "trader" // Player 2 has something in Groningen
+    // board.cities.Kampen[1].player = 1  // Player 2 has something in Groningen
+    // board.cities.Kampen[1].type = "trader" // Player 2 has something in Groningen
+    // board.cities.Osnabruck[1].player = 3  // Player 2 has something in Groningen
+    // board.cities.Osnabruck[1].type = "trader" // Player 2 has something in Groningen
+
+    board.roads.GroningenEmden.houses.player[1] = 2;
+    board.roads.GroningenEmden.houses.type[1] = "trader";
+    board.roads.GroningenEmden.houses.player[2] = 1;
+    board.roads.GroningenEmden.houses.type[2] = "trader";
+    let players = {}
+    for (let i = 0; i < 4; i++) {
+        players[i] = new PlayerModel()
+        players[i].id = i;
+    }
+
 
     return {
         board: board,
+        players: players,
 
     };
 }

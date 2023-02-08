@@ -30,9 +30,9 @@ export class MerchantsOfDeutscheTable extends React.Component {
         this.board = React.createRef();
     }
 
-    playCube = (edge, i) => {
-        console.log("Place " + edge + i);
-        this.props.moves.Place(edge, i);
+    playCube = (edge, type, i) => {
+        console.log("Place " + edge + i + " " + type);
+        this.props.moves.Place(edge, type, i);
     }
 
     render() {

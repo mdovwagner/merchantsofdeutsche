@@ -22,7 +22,6 @@ export class Board extends React.Component {
         this.state = { selectedOnEdges: {"KampenOsnabruck": 1}, selectedOnCities: {} };
 
 
-
         this.cityRefs = {}
         for (let city in cities) {
             this.cityRefs[city] = React.createRef();
@@ -34,9 +33,9 @@ export class Board extends React.Component {
     }
 
 
-    handleEdgeClick = (edge, i) => {
+    handleEdgeClick = (edge, type, i) => {
         // If current action
-        this.props.playCube(edge.source + edge.target, i);
+        this.props.playCube(edge.source + edge.target, type, i);
     }
 
 
@@ -94,7 +93,6 @@ export class Board extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         let scale = 1;
         // const myStage = (this.props.myTurn && (this.props.stage === "score" || this.props.stage === "place"));
         // const oStyle = {

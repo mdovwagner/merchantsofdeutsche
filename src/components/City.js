@@ -25,7 +25,7 @@ export class City extends React.Component {
         const officeExists = true;
         const officeColor = priviledgeColors[office.color]
 
-        const player = this.props.board.cities[this.props.city.id][i];
+        const player = this.props.board.cities[this.props.city.id].player[i];
         const playerColor = (playerColors[player] || {}).color;
         const playerStyle = {
             fill: playerColor,

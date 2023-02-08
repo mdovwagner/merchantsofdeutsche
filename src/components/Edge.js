@@ -29,7 +29,7 @@ export class Edge extends React.Component {
             stroke: "black"
         }
 
-        let fills = this.props.board.roads[this.props.edge.source + this.props.edge.target].houses.map((p) => {
+        let fills = this.props.board.roads[this.props.edge.source + this.props.edge.target].houses.player.map((p) => {
             return (p) ? playerColors[p].color : "#B99976";
         })
 
@@ -55,7 +55,7 @@ export class Edge extends React.Component {
         return (<svg>
             <line key={"edge" + this.props.index} x1={x1} y1={y1} x2={x2} y2={y2} style={edgeStyle}  />
             {numbers.map((n) =>
-                <g onClick={(event) => { this.props.handleClick(this.props.edge, n) }}>
+                <g onClick={(event) => { this.props.handleClick(this.props.edge, "trader", n) }}>
                     <ellipse style={fgStyle} cx={xs[n]} cy={ys[n]} rx={radius} ry={radius} />
                     <rect x={xs[n] - length} y={ys[n] - length} width={length * 2} height={length * 2} style={houseStyle} fill={fills[n]} />
                 </g>
