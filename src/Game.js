@@ -3,6 +3,7 @@ import PlayerModel from "./models/PlayerModel";
 import { cities } from './static/cities.js';
 import { Place } from './moves/Place.js';
 import { Move } from './moves/Move.js';
+import { Claim } from './moves/Claim.js';
 import { Displace } from './moves/Displace.js';
 
 
@@ -66,7 +67,7 @@ export const MerchantsOfDeutsche = {
         // Collect, 
         Place,
         Move, // Hellicopter
-        // Claim,
+        Claim,
         // endMessage: endMessage
     },
 

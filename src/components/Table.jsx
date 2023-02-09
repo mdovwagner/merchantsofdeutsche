@@ -33,11 +33,16 @@ export function MerchantsOfDeutscheTable({ctx, G, moves}) {
 
     let moveTrader = (item, edge, i, player) => {
         // console.log(props)
-        console.log("from Edge " + item.source + item.target)
+        console.log("from Edge " + item.edge.source + item.edge.target)
         console.log("to Edge " + edge.source + edge.target)
         // moves.Move([{edge: item.source+item.target, i:item.i}],[{edge: edge, i: i}])
-        moves.Move(item.source+item.target, item.i,edge.source+edge.target, i);
+        moves.Move(item.edge.source+item.edge.target, item.i,edge.source+edge.target, i);
     };
+
+    let claimOffice = (item, city, office, i) => {
+        console.log("Claim "+ office.color + " " + city);
+        moves.Claim(city, office, i);
+    }
 
 
     return (
@@ -47,6 +52,7 @@ export function MerchantsOfDeutscheTable({ctx, G, moves}) {
                 board={G.board} 
                 playCube = {playCube}
                 moveTrader = {moveTrader}
+                claimOffice = {claimOffice}
             />
         </DndProvider>
         </div>

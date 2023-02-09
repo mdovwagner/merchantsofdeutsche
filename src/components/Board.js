@@ -122,6 +122,7 @@ export function Board(props) {
                     board = {props.board}
                     city = {city}
                     index = {i}
+                    claimOffice={props.claimOffice}
                 />
             )}
         </div>
