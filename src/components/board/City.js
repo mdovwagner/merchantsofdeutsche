@@ -69,7 +69,7 @@ export function City(props) {
     const players = props.board.cities[props.city.id].player;
     const types = props.board.cities[props.city.id].type;
     let dx = [-45, -25, -5, +15];
-
+    console.log(props.city);
     return (
         <div key={"city" + props.index} style={{ position: 'absolute', top, left }}>
         <svg  width={105} height={120}//onClick={(event) => { props.selectCity(props.city.id) }}

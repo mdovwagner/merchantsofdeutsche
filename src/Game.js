@@ -17,8 +17,8 @@ function setupGame(ctx) {
     let board = new BoardModel();
 
     // Testing
-    board.cities.Groningen.player[0] = 2 // Player 2 has something in Groningen
-    board.cities.Groningen.type[0] = "merchant" // Player 2 has something in Groningen
+    board.cities.Groningen.player[1] = 2 // Player 2 has something in Groningen
+    board.cities.Groningen.type[1] = "merchant" // Player 2 has something in Groningen
     board.cities.Kampen.player[1] = 1  // Player 2 has something in Groningen
     board.cities.Kampen.type[1] = "trader" // Player 2 has something in Groningen
     board.cities.Osnabruck.player[1] = 3  // Player 2 has something in Groningen

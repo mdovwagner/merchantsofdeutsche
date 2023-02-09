@@ -49,7 +49,12 @@ export function Office(props) {
             style={{ position: 'absolute', top: 23, left: 33+dx[props.i]}}
         >
             <svg width={2 * radius + 4} height={2 * radius + 4}>
-                <rect x={6.5} y={6.5} width={length * 2} height={length * 2} style={officeStyle} />
+                {(props.office.type === "merchant") ? (
+                    <ellipse cx={radius + 2} cy={radius + 2} rx={radius} ry={radius} style={officeStyle} />
+                ) :
+                    (<rect x={6.5} y={6.5} width={length * 2} height={length * 2} style={officeStyle} />
+                    )
+                }
             </svg>
         </div>
     )
