@@ -2,9 +2,9 @@ import { Paper, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles'; 
 import React from 'react';
 
-import { cities } from '../static/cities';
-import { edgeLookup, edges } from '../static/edges';
-import { playerColors, priviledgeColors } from '../static/playerColors';
+import { cities } from '../../static/cities';
+import { edgeLookup, edges } from '../../static/edges';
+import { playerColors, priviledgeColors } from '../../static/playerColors';
 
 import { City } from './City';
 import { Edge } from './Edge';

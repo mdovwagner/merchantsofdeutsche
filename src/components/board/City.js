@@ -1,9 +1,9 @@
 import { Paper, Typography } from '@mui/material';
 import React from 'react';
 
-import { cities } from '../static/cities';
-import { edgeLookup, edges } from '../static/edges';
-import { playerColors, priviledgeColors } from '../static/playerColors';
+import { cities } from '../../static/cities';
+import { edgeLookup, edges } from '../../static/edges';
+import { playerColors, priviledgeColors } from '../../static/playerColors';
 import { Office } from './Office';
 import { Trader } from './Trader';
 

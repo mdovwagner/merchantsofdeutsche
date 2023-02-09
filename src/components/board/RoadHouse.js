@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDrop } from 'react-dnd'
-import { ItemTypes } from '../static/constants'
+import { ItemTypes } from '../../static/constants'
 
 
 

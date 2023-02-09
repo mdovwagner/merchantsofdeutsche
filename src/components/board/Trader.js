@@ -3,10 +3,10 @@ import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { useDrag } from 'react-dnd'
 
-import { cities } from '../static/cities';
-import { edgeLookup, edges } from '../static/edges';
-import { playerColors, priviledgeColors } from '../static/playerColors';
-import { ItemTypes } from '../static/constants';
+import { cities } from '../../static/cities';
+import { edgeLookup, edges } from '../../static/edges';
+import { playerColors, priviledgeColors } from '../../static/playerColors';
+import { ItemTypes } from '../../static/constants';
 
 export function Trader(props) {
 

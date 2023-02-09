@@ -1,5 +1,5 @@
 import React from 'react';
-import { Board } from './Board';
+import { Board } from './board/Board';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 

@@ -1,6 +1,6 @@
 import { useDrop } from "react-dnd";
-import { ItemTypes } from "../static/constants";
-import { playerColors, priviledgeColors } from "../static/playerColors";
+import { ItemTypes } from "../../static/constants";
+import { playerColors, priviledgeColors } from "../../static/playerColors";
 
 export function Office(props) {
     const [{ isOver }, drop] = useDrop(
