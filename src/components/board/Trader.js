@@ -15,6 +15,8 @@ export function Trader(props) {
     const [{ isDragging }, drag] = useDrag(() => ({
         type: ItemTypes.TRADER,
         item: {
+            source: props.source,
+            type: props.type,
             edge: props.edge,
             i: props.i
         },

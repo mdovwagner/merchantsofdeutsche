@@ -7,21 +7,25 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { createTheme, Dialog, Snackbar, Stack } from '@mui/material';
+import { Dialog, Snackbar, Stack } from '@mui/material';
 import { DialogContent } from '@mui/material';
 import PlayerBoard from './PlayerBoard';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
     palette: {
-        secondary: {
-            main: "#D2B48C",
-        },
         primary: {
-            main: "#664229",
+            light: '#757ce8',
+            main: '#3f50b5',
+            dark: '#002884',
+            contrastText: '#fff',
         },
-        disabled: {
-            main: "#E5D3B3"
-        }
+        secondary: {
+            light: '#ff7961',
+            main: '#f44336',
+            dark: '#ba000d',
+            contrastText: '#000',
+        },
     },
 });
 export function MerchantsOfDeutscheTable({ctx, G, moves}) {
@@ -34,10 +38,16 @@ export function MerchantsOfDeutscheTable({ctx, G, moves}) {
 
     let moveTrader = (item, edge, i, player) => {
         // console.log(props)
-        console.log("from Edge " + item.edge.source + item.edge.target)
-        console.log("to Edge " + edge.source + edge.target)
+        if (item.source === "edge") {
+            console.log("from Edge " + item.edge.source + item.edge.target)
+            console.log("to Edge " + edge.source + edge.target)
+            moves.Move(item.edge.source+item.edge.target, item.i,edge.source+edge.target, i);
+        } else if (item.source === "active") {
+            playCube(edge.source + edge.target, item.type, item.i)
+        } else if (item.source === "inactive") {
+            console.log("CANNOT MOVE FROM INACTIVE SUPPLY");
+        }
         // moves.Move([{edge: item.source+item.target, i:item.i}],[{edge: edge, i: i}])
-        moves.Move(item.edge.source+item.edge.target, item.i,edge.source+edge.target, i);
     };
 
     let claimOffice = (item, city, office, i) => {
@@ -51,6 +61,7 @@ export function MerchantsOfDeutscheTable({ctx, G, moves}) {
 
 
     return (
+        <ThemeProvider theme={theme}>
         <Stack style={{ position: 'relative'}}>
         <DndProvider backend={HTML5Backend}>
             <Paper>
@@ -70,6 +81,7 @@ export function MerchantsOfDeutscheTable({ctx, G, moves}) {
             </Paper>
         </DndProvider>
         </Stack>
+        </ThemeProvider>
     );
 }
 

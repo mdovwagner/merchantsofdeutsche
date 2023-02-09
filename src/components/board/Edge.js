@@ -94,6 +94,7 @@ export function Edge(props) {
             <div key={"T" + i} style={{ position: 'absolute', top: ys[n] - y1+23, left: xs[n] - x1 +33}}
                 >
             <Trader 
+                source={"edge"}
                 edge={props.edge}
                 i={n}
                 x={0}

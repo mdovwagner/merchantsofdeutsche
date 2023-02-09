@@ -25,10 +25,10 @@ export default function PlayerBoard(props) {
             <hr />
             <Paper style={{display: 'flex'}} className="ActiveSupply">
                 {activeTraderSupply.map((_, i) => 
-                    <Trader edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"trader"}/>
+                    <Trader source={"active"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"trader"}/>
                 )}
                 {activeMerchantSupply.map((_, i) => 
-                    <Trader edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"merchant"}/>
+                    <Trader source={"active"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"merchant"}/>
                 )}
             </Paper>
             <Paper className="Mat">
@@ -48,10 +48,10 @@ export default function PlayerBoard(props) {
             </Paper>
             <Paper style={{ display: 'flex' }} className="InactiveSupply">
                 {inactiveTraderSupply.map((_, i) =>
-                    <Trader edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"trader"} />
+                    <Trader source={"inactive"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"trader"} />
                 )}
                 {inactiveMerchantSupply.map((_, i) =>
-                    <Trader edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"merchant"} />
+                    <Trader source={"inactive"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"merchant"} />
                 )}
             </Paper>
         </Stack>

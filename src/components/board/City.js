@@ -99,6 +99,7 @@ export function City(props) {
             <div key={"OfficeT" + i}
                 style={{ position: 'absolute', top: 23, left: 33 + dx[i] }}>
                 <Trader
+                    source={"city"}
                     edge={null}
                     i={i}
                     x={0}
