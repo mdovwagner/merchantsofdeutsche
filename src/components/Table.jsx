@@ -23,29 +23,33 @@ const theme = createTheme({
         }
     },
 });
+export function MerchantsOfDeutscheTable({ctx, G, moves}) {
 
-export class MerchantsOfDeutscheTable extends React.Component {
-    constructor(props) {
-        super(props);
-        console.log(props.G)
-        this.boardOpen = false;
-        this.board = React.createRef();
-    }
-
-    playCube = (edge, type, i) => {
+    console.log(G.board.roads);
+    let playCube = (edge, type, i) => {
         console.log("Place " + edge + i + " " + type);
-        this.props.moves.Place(edge, type, i);
+        moves.Place(edge, type, i);
     }
 
-    render() {
-        return (
-            <DndProvider debugMode={true} backend={HTML5Backend}>
-                <Board 
-                    board={this.props.G.board} 
-                    playCube = {this.playCube}
-                />
-            </DndProvider>
-        );
-    }
+    let moveTrader = (item, edge, i, player) => {
+        // console.log(props)
+        console.log("from Edge " + item.source + item.target)
+        console.log("to Edge " + edge.source + edge.target)
+        // moves.Move([{edge: item.source+item.target, i:item.i}],[{edge: edge, i: i}])
+        moves.Move(item.source+item.target, item.i,edge.source+edge.target, i);
+    };
+
+
+    return (
+        <div>
+        <DndProvider backend={HTML5Backend}>
+            <Board 
+                board={G.board} 
+                playCube = {playCube}
+                moveTrader = {moveTrader}
+            />
+        </DndProvider>
+        </div>
+    );
 }
 

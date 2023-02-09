@@ -112,6 +112,7 @@ export function Board(props) {
                     board={props.board}
                     edge={edge}
                     index={i}
+                    moveTrader={props.moveTrader}
                     // playCube = {props.playCube}
                     handleClick={handleEdgeClick}
                 />
