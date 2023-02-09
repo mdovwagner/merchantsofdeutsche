@@ -36,9 +36,9 @@ export function Trader(props) {
                  stroke: "black", 
                  opacity: isDragging ? 0 : 1, 
                  cursor: 'grab',
-                 position: 'relative', top: (y-length-4.3), left: (x-length-4.3),
+                 position: 'relative',
                  visibility: (props.player !== null) ? "visible" : "hidden",
-                 zIndex: 1
+                 zIndex: 2
                 }}
     >   <svg width={radius*2+4} height = {radius*2+4}>
         {(props.type === "merchant") ? (

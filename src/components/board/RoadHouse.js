@@ -35,7 +35,7 @@ export default function RoadHouse(props) {
     return (
         <div
             ref={drop}
-            style={{ position: 'absolute', top: 23, left: 33, cursor: "pointer" }}
+            style={{ position: 'absolute', cursor: "pointer", zIndex: 1}}
         >
             <svg width={2*props.radius+4} height={2*props.radius+4}>
                 <ellipse style={fgStyle} cx={props.radius+2} cy={props.radius+2} rx={props.radius} ry={props.radius} />

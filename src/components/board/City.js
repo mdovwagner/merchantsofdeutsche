@@ -69,7 +69,6 @@ export function City(props) {
     const players = props.board.cities[props.city.id].player;
     const types = props.board.cities[props.city.id].type;
     let dx = [-45, -25, -5, +15];
-    console.log(props.city);
     return (
         <div key={"city" + props.index} style={{ position: 'absolute', top, left }}>
         <svg  width={105} height={120}//onClick={(event) => { props.selectCity(props.city.id) }}
@@ -98,12 +97,12 @@ export function City(props) {
         )}
         {props.city.offices.map((office, i) =>
             <div key={"OfficeT" + i}
-                style={{ position: 'absolute', top: 0, left: 0 + dx[i] }}>
+                style={{ position: 'absolute', top: 23, left: 33 + dx[i] }}>
                 <Trader
                     edge={null}
                     i={i}
-                    x={50 - 2}
-                    y={40 - 2}
+                    x={0}
+                    y={0}
                     length={length}
                     player={players[i]}
                     type={types[i]}

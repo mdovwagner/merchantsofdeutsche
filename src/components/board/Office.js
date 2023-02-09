@@ -46,7 +46,7 @@ export function Office(props) {
         <div
             ref={drop}
             key={"Office" + props.i}
-            style={{ position: 'absolute', top: 23, left: 33+dx[props.i]}}
+            style={{ position: 'absolute', top: 23, left: 33+dx[props.i], zIndex: 1}}
         >
             <svg width={2 * radius + 4} height={2 * radius + 4}>
                 {(props.office.type === "merchant") ? (

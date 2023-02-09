@@ -75,7 +75,8 @@ export function Edge(props) {
         </svg>
         {numbers.map((n, i) =>
             <div key={"n"+i}
-                style={{ position: 'absolute', top: ys[n]-y1, left: xs[n]-x1}}
+                className="RoadDive"
+                style={{ position: 'absolute', top: ys[n]-y1+23, left: xs[n]-x1+33}}
                 onClick={(event) => { handleClick(event, props.edge, n) }}
                 >
                 <RoadHouse
@@ -90,13 +91,13 @@ export function Edge(props) {
             </div>
         )}
         {numbers.map((n, i) => 
-            <div key={"T" + i} style={{ position: 'absolute', top: ys[n] - y1, left: xs[n] - x1 }}
+            <div key={"T" + i} style={{ position: 'absolute', top: ys[n] - y1+23, left: xs[n] - x1 +33}}
                 >
             <Trader 
                 edge={props.edge}
                 i={n}
-                x={50-2}
-                y={40-2}
+                x={0}
+                y={0}
                 length={length}
                 player={players[n]}
                 type={types[n]}
