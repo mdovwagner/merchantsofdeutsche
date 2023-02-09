@@ -23,8 +23,8 @@ export function Trader(props) {
         }),
     }))
 
-
-    let length = props.length;
+    const radius = 15;
+    const length = radius * 1.4 / 2;
     let x = props.x;
     let y = props.y;
     let fill = (props.player !== null) ? playerColors[props.player].color : "#B99976"
@@ -36,12 +36,17 @@ export function Trader(props) {
                  stroke: "black", 
                  opacity: isDragging ? 0 : 1, 
                  cursor: 'grab',
-                 position: 'relative', top: (y-length), left: (x-length),
+                 position: 'relative', top: (y-length-4.3), left: (x-length-4.3),
                  visibility: (props.player !== null) ? "visible" : "hidden",
                  zIndex: 1
                 }}
-    >   <svg width={length*2+4} height = {length*2+4}>
-        <rect x={2} y={2} width={length * 2} height={length * 2}  fill={fill} />
+    >   <svg width={radius*2+4} height = {radius*2+4}>
+        {(props.type === "merchant") ? (
+        <ellipse cx={radius + 2} cy={radius + 2} rx={radius} ry={radius}  fill={fill} />
+        ) :
+        (<rect x={6.5} y={6.5} width={length * 2} height={length * 2}  fill={fill} />
+        )
+            }
         </svg>
         </div>
     );

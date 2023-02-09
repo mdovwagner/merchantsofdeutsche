@@ -18,7 +18,7 @@ function setupGame(ctx) {
 
     // Testing
     board.cities.Groningen.player[0] = 2 // Player 2 has something in Groningen
-    board.cities.Groningen.type[0] = "trader" // Player 2 has something in Groningen
+    board.cities.Groningen.type[0] = "merchant" // Player 2 has something in Groningen
     board.cities.Kampen.player[1] = 1  // Player 2 has something in Groningen
     board.cities.Kampen.type[1] = "trader" // Player 2 has something in Groningen
     board.cities.Osnabruck.player[1] = 3  // Player 2 has something in Groningen
@@ -28,6 +28,8 @@ function setupGame(ctx) {
     board.roads.GroningenEmden.houses.type[1] = "trader";
     board.roads.GroningenEmden.houses.player[2] = 1;
     board.roads.GroningenEmden.houses.type[2] = "trader";
+    board.roads.KampenOsnabruck.houses.player[3] = 3;
+    board.roads.KampenOsnabruck.houses.type[3] = "merchant";
     let players = {}
     for (let i = 0; i < 4; i++) {
         players[i] = new PlayerModel()

@@ -67,6 +67,7 @@ export function City(props) {
     const length = radius * 1.4 / 2;
 
     const players = props.board.cities[props.city.id].player;
+    const types = props.board.cities[props.city.id].type;
     let dx = [-45, -25, -5, +15];
 
     return (
@@ -105,6 +106,7 @@ export function City(props) {
                     y={40 - 2}
                     length={length}
                     player={players[i]}
+                    type={types[i]}
                 />
             </div>
         )}

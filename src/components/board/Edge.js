@@ -12,7 +12,18 @@ import { Trader } from './Trader';
 
 export function Edge(props) {
 
+    let handleClick = (event, edge, n) => {
 
+        event.stopPropagation();
+
+        // In that case, event.ctrlKey does the trick.
+        if (event.shiftKey) {
+            console.log("Shift+click has just happened!");
+        }
+        let type = (event.shiftKey) ? "merchant" : "trader";
+
+        props.handleClick(edge, type, n);
+    }
 
     
     const edgeStyle = {
@@ -27,6 +38,9 @@ export function Edge(props) {
 
     let players = props.board.roads[props.edge.source + props.edge.target].houses.player.map((p) => {
         return p;
+    })
+    let types = props.board.roads[props.edge.source + props.edge.target].houses.type.map((t) => {
+        return t;
     })
     let fills = players.map((p) => {
         return (p) ? playerColors[p].color : "#B99976";
@@ -62,7 +76,7 @@ export function Edge(props) {
         {numbers.map((n, i) =>
             <div key={"n"+i}
                 style={{ position: 'absolute', top: ys[n]-y1, left: xs[n]-x1}}
-                onClick={(event) => { props.handleClick(props.edge, "trader", n) }}
+                onClick={(event) => { handleClick(event, props.edge, n) }}
                 >
                 <RoadHouse
                     edge={props.edge}
@@ -85,6 +99,7 @@ export function Edge(props) {
                 y={40-2}
                 length={length}
                 player={players[n]}
+                type={types[n]}
             />
         </div>
         )}

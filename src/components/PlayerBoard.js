@@ -12,14 +12,19 @@ export default function PlayerBoard(props) {
 
     const width = 500;
     const height = 200;
-    const activeSupply = Array(player.active.trader).fill(null);
-    const inactiveSupply = Array(player.inactive.trader).fill(null);
+    const activeTraderSupply = Array(player.active.trader).fill(null);
+    const inactiveTraderSupply = Array(player.inactive.trader).fill(null);
+    const activeMerchantSupply = Array(player.active.merchant).fill(null);
+    const inactiveMerchantSupply = Array(player.inactive.merchant).fill(null);
 
     return (
         <Stack style={{ position: 'absolute', top:350}}>
             <Paper style={{display: 'flex'}} className="ActiveSupply">
-                {activeSupply.map((_, i) => 
-                    <Trader edge={null} i={i} x={10} y={0} length={10} player={player.id} />
+                {activeTraderSupply.map((_, i) => 
+                    <Trader edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"trader"}/>
+                )}
+                {activeMerchantSupply.map((_, i) => 
+                    <Trader edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"merchant"}/>
                 )}
             </Paper>
             <Paper className="Mat">
@@ -38,8 +43,11 @@ export default function PlayerBoard(props) {
                 <Button>End Turn</Button>
             </Paper>
             <Paper style={{ display: 'flex' }} className="InactiveSupply">
-                {inactiveSupply.map((_, i) =>
-                    <Trader edge={null} i={i} x={10} y={0} length={10} player={player.id} />
+                {inactiveTraderSupply.map((_, i) =>
+                    <Trader edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"trader"} />
+                )}
+                {inactiveMerchantSupply.map((_, i) =>
+                    <Trader edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"merchant"} />
                 )}
             </Paper>
         </Stack>
