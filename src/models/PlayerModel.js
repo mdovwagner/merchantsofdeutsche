@@ -19,8 +19,8 @@ function PlayerModel(i) {
             actionsRemaining: 0,
             currentBonus: "",
             prevBonuses: [],
-            active: {traders: 0, merchants: 0},
-            inactive: {traders: 0, merchants: 0},
+            active: {trader: 5, merchant: 1},
+            inactive: {trader: 4, merchant: 1},
         }
     )
 

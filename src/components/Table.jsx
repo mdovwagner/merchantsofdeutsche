@@ -7,8 +7,9 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { createTheme, Dialog, Snackbar } from '@mui/material';
+import { createTheme, Dialog, Snackbar, Stack } from '@mui/material';
 import { DialogContent } from '@mui/material';
+import PlayerBoard from './PlayerBoard';
 
 const theme = createTheme({
     palette: {
@@ -44,18 +45,31 @@ export function MerchantsOfDeutscheTable({ctx, G, moves}) {
         moves.Claim(city, office, i);
     }
 
+    let collectIncome = (type) => {
+        moves.Collect(type);
+    }
+
 
     return (
-        <div>
+        <Stack style={{ position: 'relative'}}>
         <DndProvider backend={HTML5Backend}>
+            <Paper>
             <Board 
                 board={G.board} 
                 playCube = {playCube}
                 moveTrader = {moveTrader}
                 claimOffice = {claimOffice}
+                />
+            </Paper>
+            <Paper>
+            <PlayerBoard 
+                players={G.players}
+                currentPlayer={ctx.currentPlayer}
+                collectIncome={collectIncome}
             />
+            </Paper>
         </DndProvider>
-        </div>
+        </Stack>
     );
 }
 

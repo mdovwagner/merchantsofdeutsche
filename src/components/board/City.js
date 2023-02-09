@@ -99,7 +99,7 @@ export function City(props) {
             <div key={"OfficeT" + i}
                 style={{ position: 'absolute', top: 0, left: 0 + dx[i] }}>
                 <Trader
-                    edge={props.edge}
+                    edge={null}
                     i={i}
                     x={50 - 2}
                     y={40 - 2}

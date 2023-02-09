@@ -4,6 +4,7 @@ import { cities } from './static/cities.js';
 import { Place } from './moves/Place.js';
 import { Move } from './moves/Move.js';
 import { Claim } from './moves/Claim.js';
+import { Collect } from './moves/Collect.js';
 import { Displace } from './moves/Displace.js';
 
 
@@ -64,7 +65,7 @@ export const MerchantsOfDeutsche = {
     setup: setupGame,
 
     moves: {
-        // Collect, 
+        Collect, 
         Place,
         Move, // Hellicopter
         Claim,

@@ -34,9 +34,9 @@ export function Trader(props) {
         ref={drag}
         style={{ strokeWidth: 2, 
                  stroke: "black", 
-                //  opacity: isDragging ? 0.5 : 1, 
+                 opacity: isDragging ? 0 : 1, 
                  cursor: 'grab',
-                 position: 'absolute', top: (y-length), left: (x-length),
+                 position: 'relative', top: (y-length), left: (x-length),
                  visibility: (props.player !== null) ? "visible" : "hidden",
                  zIndex: 1
                 }}
