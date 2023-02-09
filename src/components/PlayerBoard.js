@@ -19,6 +19,10 @@ export default function PlayerBoard(props) {
 
     return (
         <Stack style={{ position: 'absolute', top:350}}>
+            <Paper>
+                Actions Remaining = {player.actionsRemaining}
+            </Paper>
+            <hr />
             <Paper style={{display: 'flex'}} className="ActiveSupply">
                 {activeTraderSupply.map((_, i) => 
                     <Trader edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"trader"}/>

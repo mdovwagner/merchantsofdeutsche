@@ -1,7 +1,8 @@
 import { INVALID_MOVE } from 'boardgame.io/core';
+import { CheckEndTurn } from './CheckEndTurn';
 
 
-export function Move({ G, ctx }, e1, i1, e2, i2) {
+export function Move({ G, ctx, events }, e1, i1, e2, i2) {
 
     const player = G.board.roads[e1].houses.player[i1];
 
@@ -24,4 +25,5 @@ export function Move({ G, ctx }, e1, i1, e2, i2) {
     //     G.board.roads[e2].houses[i2] = ctx.currentPlayer;
     // }
 
+    CheckEndTurn({G, ctx, events})
 }

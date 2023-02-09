@@ -16,7 +16,7 @@ function PlayerModel(i) {
 
             //Other
             score: 0,
-            actionsRemaining: 0,
+            actionsRemaining: 2,
             currentBonus: "",
             prevBonuses: [],
             active: {trader: 5, merchant: 2},

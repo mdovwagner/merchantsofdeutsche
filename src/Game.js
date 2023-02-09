@@ -45,11 +45,13 @@ function setupGame(ctx) {
 }
 
 const turns = {
-    // onBegin: (G, ctx) => {
-    //     G.newTurn = true;
-    //     changeMessage(G, ctx, { valid: true, text: "Your turn " + ctx.currentPlayer, type: "info" });
-    //     ctx.events.setActivePlayers({ currentPlayer: 'draw', others: 'wait' });
-    // },
+    onBegin: (G, ctx) => {
+        // G.newTurn = true;
+        // changeMessage(G, ctx, { valid: true, text: "Your turn " + ctx.currentPlayer, type: "info" });
+        // ctx.events.setActivePlayers({ currentPlayer: 'draw', others: 'wait' });
+        console.log("Begin")
+        G.players[ctx.currentPlayer].actionsRemaining = G.players[ctx.currentPlayer].actiones;
+    },
     stages: {
         
         displace: {

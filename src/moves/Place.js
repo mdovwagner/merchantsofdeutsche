@@ -1,6 +1,7 @@
 import { INVALID_MOVE } from 'boardgame.io/core';
+import { CheckEndTurn } from './CheckEndTurn';
 
-export function Place({G, ctx}, edge, type, i) {
+export function Place({G, ctx, events}, edge, type, i) {
     if (G.players[ctx.currentPlayer].active[type] == 0) {
         return INVALID_MOVE;
     }
@@ -10,4 +11,5 @@ export function Place({G, ctx}, edge, type, i) {
     // Remove one from Active supply
     G.players[ctx.currentPlayer].active[type] -= 1;
     
+    CheckEndTurn({ G, ctx, events });
 }
