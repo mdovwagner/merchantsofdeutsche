@@ -2,7 +2,7 @@ import React from 'react';
 import { Board } from './board/Board';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-
+import './styles/base.css'
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Grid from '@mui/material/Grid';
@@ -11,6 +11,7 @@ import { Dialog, Snackbar, Stack } from '@mui/material';
 import { DialogContent } from '@mui/material';
 import PlayerBoard from './PlayerBoard';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { playerColors } from '../static/playerColors';
 
 const theme = createTheme({
     palette: {
@@ -65,12 +66,19 @@ export function MerchantsOfDeutscheTable({ctx, G, moves, playerID}) {
         moves.Displace(edge.source+edge.target, item.type, i);
     }
 
+    const isMyTurn = ctx.currentPlayer === playerID;
+    const playerColor = playerColors[playerID];
+
 
     return (
-        <ThemeProvider theme={theme}>
+        // <ThemeProvider theme={theme}>
         <Stack style={{ position: 'relative'}}>
         <DndProvider backend={HTML5Backend}>
             <Paper>
+                {(isMyTurn) ? 
+                <div className="section">My Turn</div> : <div></div>}
+            </Paper>
+            <Paper >
             <Board 
                 board={G.board} 
                 playCube = {playCube}
@@ -80,7 +88,7 @@ export function MerchantsOfDeutscheTable({ctx, G, moves, playerID}) {
                 currentPlayer={ctx.currentPlayer}
                 />
             </Paper>
-            <Paper>
+            <Paper >
             <PlayerBoard 
                 players={G.players}
                 playerID={playerID}
@@ -90,7 +98,7 @@ export function MerchantsOfDeutscheTable({ctx, G, moves, playerID}) {
             </Paper>
         </DndProvider>
         </Stack>
-        </ThemeProvider>
+        // </ThemeProvider>
     );
 }
 
