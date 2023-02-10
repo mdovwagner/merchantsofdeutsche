@@ -21,6 +21,11 @@ function PlayerModel(i) {
             prevBonuses: [],
             active: {trader: 5, merchant: 2},
             inactive: {trader: 4, merchant: 1},
+            message: {
+                valid: false,
+                text: "",
+                type: "info", // error, warning, info, success  
+            }
         }
     )
 

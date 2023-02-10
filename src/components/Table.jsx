@@ -12,6 +12,8 @@ import { DialogContent } from '@mui/material';
 import PlayerBoard from './PlayerBoard';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { playerColors } from '../static/playerColors';
+import SnackbarDialog from './SnackBardDialog';
+import ActionBar from './ActionBar';
 
 const theme = createTheme({
     palette: {
@@ -31,7 +33,14 @@ const theme = createTheme({
 });
 export function MerchantsOfDeutscheTable({ctx, G, moves, playerID}) {
 
-    console.log(ctx);
+    let endMessage = () => {
+        moves.endMessage(playerID);
+    }
+
+    let alertPlayer = () => {
+        moves.changeMessage({ valid: true, text: "You're taking too long. Stop being a David Green", type: "warning" });
+    }
+
     let playCube = (edge, type, i) => {
         console.log("Place " + edge + i + " " + type);
         moves.Place(edge, type, i);
@@ -56,6 +65,12 @@ export function MerchantsOfDeutscheTable({ctx, G, moves, playerID}) {
         if (item.source === "edge") {
             console.log("Claim "+ office.color + " " + city);
             moves.Claim(city, item.edge.source+item.edge.target, office, i);
+        } else {
+            moves.changeMessage({
+                valid: true,
+                text: "Can't claim office from " + item.source + " supply",
+                type: "error"
+            });
         }
     }
 
@@ -68,7 +83,9 @@ export function MerchantsOfDeutscheTable({ctx, G, moves, playerID}) {
         moves.Displace(edge.source+edge.target, item.type, i);
     }
 
-    const isMyTurn = ctx.currentPlayer === playerID;
+    const myTurn = ctx.currentPlayer === playerID;
+    let player = G.players[playerID];
+    console.log(player.message);
     const playerColor = playerColors[playerID];
 
 
@@ -77,7 +94,7 @@ export function MerchantsOfDeutscheTable({ctx, G, moves, playerID}) {
         <Stack style={{ position: 'relative'}}>
         <DndProvider backend={HTML5Backend}>
             <Paper>
-                {(isMyTurn) ? 
+                {(myTurn) ? 
                 <div className="section">My Turn</div> : <div></div>}
             </Paper>
             <Paper >
@@ -98,7 +115,18 @@ export function MerchantsOfDeutscheTable({ctx, G, moves, playerID}) {
                 collectIncome={collectIncome}
             />
             </Paper>
+            <ActionBar currentPlayer={ctx.currentPlayer}
+                playerID={playerID}
+                activePlayers={ctx.activePlayers}
+                // scoreCards={this.scoreCards} endTurn={this.endTurn}
+                // trashRoute={this.trashRoute}
+                alertPlayer={alertPlayer}
+                gameover={ctx.gameover}
+                administrator={() => moves.administrator()}
+                myTurn={myTurn}
+            />
         </DndProvider>
+            <SnackbarDialog playerID={playerID} message={player.message} endMessage={endMessage} />
         </Stack>
         // </ThemeProvider>
     );

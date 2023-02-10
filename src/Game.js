@@ -7,6 +7,7 @@ import { Claim } from './moves/Claim.js';
 import { Collect } from './moves/Collect.js';
 import { Displace } from './moves/Displace.js';
 import { BeDisplaced } from './moves/BeDisplaced.js';
+import { changeMessage, endMessage } from "./moves/Message";
 
 
 
@@ -51,13 +52,15 @@ let turns = {
         // changeMessage(G, ctx, { valid: true, text: "Your turn " + ctx.currentPlayer, type: "info" });
         // ctx.events.setActivePlayers({ currentPlayer: 'draw', others: 'wait' });
         console.log("Begin")
+        changeMessage({G, ctx}, { valid: true, text: "Your turn " + ctx.currentPlayer, type: "info" });
         G.players[ctx.currentPlayer].actionsRemaining = G.players[ctx.currentPlayer].actiones;
-        events.setActivePlayers({ currentPlayer: 'normal'});
+        events.setActivePlayers({ currentPlayer: 'normal', others: "wait"});
     },
     stages: {
         
-        displace: {moves: { BeDisplaced } },
-        normal: {moves: {Collect, Place, Move, Claim, Displace}}
+        displace: {moves: { BeDisplaced, changeMessage, endMessage } },
+        normal: {moves: {Collect, Place, Move, Claim, Displace, changeMessage, endMessage}},
+        wait: {moves: {changeMessage, changeMessage, endMessage}}
 
     },
     // onEnd: (G, ctx) => {
@@ -75,7 +78,8 @@ export const MerchantsOfDeutsche = {
         // Move, // Hellicopter
         // Claim,
         // Displace,
-        // endMessage: endMessage
+        changeMessage: changeMessage,
+        endMessage: endMessage
     },
 
     minPlayers: 3,

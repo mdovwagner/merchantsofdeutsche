@@ -1,7 +1,18 @@
+import { INVALID_MOVE } from 'boardgame.io/core';
 import { CheckEndTurn } from "./CheckEndTurn";
+import { changeMessage } from "./Message";
 
 export function Claim({ G, ctx, events }, city, edge, office, i) {
     console.log("Claim " + city);
+    let player = G.players[ctx.currentPlayer];
+    if (player.privilegium !== office.color) {
+        changeMessage({G, ctx},{
+            valid: true,
+            text: "You don't have " + office.color + " priviledge.",
+            type: "error"
+        });
+        return INVALID_MOVE;
+    }
 
     // Loop through houses on edge to check that they are all the curPlayers
 

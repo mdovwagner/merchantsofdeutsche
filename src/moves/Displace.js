@@ -40,7 +40,7 @@ export function Displace({ G, ctx, events }, edge, type, i) {
     // TODO: Change to it's own area in the corner of the screen?
     G.players[displacedPlayerID].inactive[displacedType] += 1;
 
-    events.setActivePlayers({ others: 'displace' });
+    events.setActivePlayers({ currentPlayer: "normal", others: 'displace' });
     
     
 

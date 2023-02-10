@@ -13,6 +13,6 @@ export function BeDisplaced({ G, ctx, events, playerID }, edge, type, i) {
 
 
     events.endStage();
-    events.setActivePlayers({currentPlayer: "normal"});
+    events.setActivePlayers({currentPlayer: "normal", others: "wait"});
     CheckEndTurn({G, ctx, events});
 }
