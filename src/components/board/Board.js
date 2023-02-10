@@ -117,8 +117,10 @@ export function Board(props) {
                     edge={edge}
                     index={i}
                     moveTrader={props.moveTrader}
+                    displace={props.displace}
                     // playCube = {props.playCube}
                     handleClick={handleEdgeClick}
+                    currentPlayer={props.currentPlayer}
                 />
             )}
             {Object.values(cities).map((city, i) =>
@@ -127,6 +129,7 @@ export function Board(props) {
                     city = {city}
                     index = {i}
                     claimOffice={props.claimOffice}
+                    currentPlayer={props.currentPlayer}
                 />
             )}
         </div>

@@ -6,6 +6,7 @@ import { Move } from './moves/Move.js';
 import { Claim } from './moves/Claim.js';
 import { Collect } from './moves/Collect.js';
 import { Displace } from './moves/Displace.js';
+import { BeDisplaced } from './moves/BeDisplaced.js';
 
 
 
@@ -44,19 +45,19 @@ function setupGame(ctx) {
     };
 }
 
-const turns = {
-    onBegin: (G, ctx) => {
+let turns = {
+    onBegin: ({G, ctx, events}) => {
         // G.newTurn = true;
         // changeMessage(G, ctx, { valid: true, text: "Your turn " + ctx.currentPlayer, type: "info" });
         // ctx.events.setActivePlayers({ currentPlayer: 'draw', others: 'wait' });
         console.log("Begin")
         G.players[ctx.currentPlayer].actionsRemaining = G.players[ctx.currentPlayer].actiones;
+        events.setActivePlayers({ currentPlayer: 'normal'});
     },
     stages: {
         
-        displace: {
-            moves: { Displace }
-        }
+        displace: {moves: { BeDisplaced } },
+        normal: {moves: {Collect, Place, Move, Claim, Displace}}
 
     },
     // onEnd: (G, ctx) => {
@@ -69,17 +70,18 @@ export const MerchantsOfDeutsche = {
     setup: setupGame,
 
     moves: {
-        Collect, 
-        Place,
-        Move, // Hellicopter
-        Claim,
+        // Collect, 
+        // Place,
+        // Move, // Hellicopter
+        // Claim,
+        // Displace,
         // endMessage: endMessage
     },
 
     minPlayers: 3,
     maxPlayers: 5,
 
-    turns: turns
+    turn: turns
 
 
     // endIf: (G, ctx) => {

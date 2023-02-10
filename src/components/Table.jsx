@@ -28,9 +28,9 @@ const theme = createTheme({
         },
     },
 });
-export function MerchantsOfDeutscheTable({ctx, G, moves}) {
+export function MerchantsOfDeutscheTable({ctx, G, moves, playerID}) {
 
-    console.log(G.board.roads);
+    console.log(ctx);
     let playCube = (edge, type, i) => {
         console.log("Place " + edge + i + " " + type);
         moves.Place(edge, type, i);
@@ -43,9 +43,10 @@ export function MerchantsOfDeutscheTable({ctx, G, moves}) {
             console.log("to Edge " + edge.source + edge.target)
             moves.Move(item.edge.source+item.edge.target, item.i,edge.source+edge.target, i);
         } else if (item.source === "active") {
-            playCube(edge.source + edge.target, item.type, item.i)
+            playCube(edge.source + edge.target, item.type, i)
         } else if (item.source === "inactive") {
             console.log("CANNOT MOVE FROM INACTIVE SUPPLY");
+            moves.BeDisplaced(edge.source+edge.target, item.type, i);
         }
         // moves.Move([{edge: item.source+item.target, i:item.i}],[{edge: edge, i: i}])
     };
@@ -59,6 +60,11 @@ export function MerchantsOfDeutscheTable({ctx, G, moves}) {
         moves.Collect(type);
     }
 
+    let displace = (item, edge, type, i) => {
+        console.log("Displace "+ edge.source+edge.target+i);
+        moves.Displace(edge.source+edge.target, item.type, i);
+    }
+
 
     return (
         <ThemeProvider theme={theme}>
@@ -69,12 +75,15 @@ export function MerchantsOfDeutscheTable({ctx, G, moves}) {
                 board={G.board} 
                 playCube = {playCube}
                 moveTrader = {moveTrader}
+                displace={displace}
                 claimOffice = {claimOffice}
+                currentPlayer={ctx.currentPlayer}
                 />
             </Paper>
             <Paper>
             <PlayerBoard 
                 players={G.players}
+                playerID={playerID}
                 currentPlayer={ctx.currentPlayer}
                 collectIncome={collectIncome}
             />

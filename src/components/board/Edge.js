@@ -43,7 +43,10 @@ export function Edge(props) {
         return t;
     })
     let fills = players.map((p) => {
-        return (p) ? playerColors[p].color : "#B99976";
+        return (p !== null) ? playerColors[p].color : "#B99976";
+    })
+    let myTurns = players.map((p) => {
+        return (p !== null) ? (p==props.currentPlayer) : false;
     })
 
     let x1 = cities[props.edge.source].x;
@@ -102,6 +105,8 @@ export function Edge(props) {
                 length={length}
                 player={players[n]}
                 type={types[n]}
+                displace={props.displace}
+                isMyTurn={myTurns[n]}
             />
         </div>
         )}

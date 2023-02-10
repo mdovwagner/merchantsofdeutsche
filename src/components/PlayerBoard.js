@@ -2,7 +2,8 @@ import { Button, Grid, Paper, Stack } from "@mui/material";
 import { Trader } from "./board/Trader";
 
 export default function PlayerBoard(props) {
-    const player = props.players[props.currentPlayer];
+    console.log(props.playerID);
+    const player = props.players[props.playerID];
 
     const fgStyle = {
         fill: "#B99976",
@@ -25,10 +26,14 @@ export default function PlayerBoard(props) {
             <hr />
             <Paper style={{display: 'flex'}} className="ActiveSupply">
                 {activeTraderSupply.map((_, i) => 
-                    <Trader source={"active"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"trader"}/>
+                <div key={"activeT"+i}>
+                    <Trader source={"active"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"trader"}currentPlayer={props.currentPlayer}/>
+                </div>
                 )}
                 {activeMerchantSupply.map((_, i) => 
-                    <Trader source={"active"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"merchant"}/>
+                <div key={"activeM"+i}>
+                    <Trader source={"active"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"merchant"}currentPlayer={props.currentPlayer}/>
+                </div>
                 )}
             </Paper>
             <Paper className="Mat">
@@ -48,10 +53,14 @@ export default function PlayerBoard(props) {
             </Paper>
             <Paper style={{ display: 'flex' }} className="InactiveSupply">
                 {inactiveTraderSupply.map((_, i) =>
-                    <Trader source={"inactive"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"trader"} />
+                <div key={"inactiveT"+i}>
+                    <Trader source={"inactive"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"trader"} currentPlayer={props.currentPlayer}/>
+                </div>
                 )}
                 {inactiveMerchantSupply.map((_, i) =>
-                    <Trader source={"inactive"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"merchant"} />
+                <div key={"inactiveM"+i}>
+                    <Trader source={"inactive"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"merchant"} currentPlayer={props.currentPlayer}/>
+                </div>
                 )}
             </Paper>
         </Stack>

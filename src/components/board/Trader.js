@@ -1,5 +1,5 @@
 import React from 'react';
-import { DndProvider } from 'react-dnd'
+import { DndProvider, useDrop } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { useDrag } from 'react-dnd'
 
@@ -10,8 +10,8 @@ import { ItemTypes } from '../../static/constants';
 
 export function Trader(props) {
 
-    // console.log(props.edge.source+props.edge.target+ props.i+ " " +props.player)
 
+    // Draggable
     const [{ isDragging }, drag] = useDrag(() => ({
         type: ItemTypes.TRADER,
         item: {
@@ -20,10 +20,38 @@ export function Trader(props) {
             edge: props.edge,
             i: props.i
         },
+        canDrag: () => canMoveTrader(),
         collect: monitor => ({
             isDragging: !!monitor.isDragging(),
         }),
     }))
+
+    let canMoveTrader = () => {
+        // console.log(props.source)
+        // console.log(props.i)
+        // console.log(props.isMyTurn);
+        // console.log(props.player, props.currentPlayer);
+        return true; // BUG Why is props.player becomming null?
+    }
+
+    // Droppable (For Displacing)
+    const [{ isOver }, drop] = useDrop(
+        () => ({
+            accept: ItemTypes.TRADER,
+            drop: (item, monitor) => dragHandler(item, props.edge, props.type, props.i),
+            collect: (monitor) => ({
+                isOver: !!monitor.isOver()
+            })
+        }),
+        [props.edge, props.type, props.i]
+    )
+
+    let dragHandler = (it, e, t, i) => {
+        if (e !== null) {
+            console.log("DISPLACE ME");
+            props.displace(it, e, t, i);
+        }
+    }
 
     const radius = 15;
     const length = radius * 1.4 / 2;
@@ -32,7 +60,7 @@ export function Trader(props) {
     let fill = (props.player !== null) ? playerColors[props.player].color : "#B99976"
     
 
-    return (<div
+    return (<div ref={drop}><div
         ref={drag}
         style={{ strokeWidth: 2, 
                  stroke: "black", 
@@ -50,6 +78,7 @@ export function Trader(props) {
         )
             }
         </svg>
+        </div>
         </div>
     );
     

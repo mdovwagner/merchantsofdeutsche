@@ -107,6 +107,7 @@ export function City(props) {
                     length={length}
                     player={players[i]}
                     type={types[i]}
+                    currentPlayer={props.currentPlayer}
                 />
             </div>
         )}
