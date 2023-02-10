@@ -36,14 +36,13 @@ export default function PlayerBoard(props) {
                 </div>
                 )}
             </Paper>
-            <Paper className="Mat">
-                {/* <svg width={width+4} height={height+4}>
-                    <rect x={2} y={2} width={width} height={height} style={fgStyle} />
-                </svg> */}
-                <Paper>
-
-                </Paper>
-            </Paper>
+            <Grid className="Mat" container spacing={2} >
+                    <Grid item xs={6}>Keys: {player.keys}</Grid>
+                    <Grid item xs={6}>Actiones: {player.actiones}</Grid>
+                    <Grid item xs={4}>Privilegium: {player.privilegium}</Grid>
+                    <Grid item xs={4}>Liber Sophiae: {player.liber}</Grid>
+                    <Grid item xs={4}>Money Bags: {player.income}</Grid>
+                </Grid>
             <Paper className="PlayerButtons">
                 <Button onClick={(event) => { props.collectIncome("trader") }}>Collect</Button>
                 <Button>Place</Button>

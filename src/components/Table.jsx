@@ -53,8 +53,10 @@ export function MerchantsOfDeutscheTable({ctx, G, moves, playerID}) {
     };
 
     let claimOffice = (item, city, office, i) => {
-        console.log("Claim "+ office.color + " " + city);
-        moves.Claim(city, office, i);
+        if (item.source === "edge") {
+            console.log("Claim "+ office.color + " " + city);
+            moves.Claim(city, item.edge.source+item.edge.target, office, i);
+        }
     }
 
     let collectIncome = (type) => {
