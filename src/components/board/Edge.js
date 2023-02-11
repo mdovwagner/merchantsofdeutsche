@@ -73,7 +73,7 @@ export function Edge(props) {
     return (<div key={"Edge" + props.index} 
         style={{ position: 'absolute', top: y1, left: x1}}
         >
-        <svg width={x2-x1+53} height={y2-y1+43}>
+        <svg width={Math.abs(x2-x1)+53} height={Math.abs(y2-y1)+43}>
         <line x1={50} y1={40} x2={x2-x1+50} y2={y2-y1+40} style={edgeStyle}  />
         </svg>
         {numbers.map((n, i) =>

@@ -16,7 +16,7 @@ export default function ActionBar(props) {
         backgroundColor: (props.myTurn) ? "gold" : "tan",
         opacity: "100%",
         bottom: 0,
-        position: 'absolute', top: 550,
+        position: 'absolute', top: 830,
 
     }
 

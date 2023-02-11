@@ -19,7 +19,7 @@ export default function PlayerBoard(props) {
     const inactiveMerchantSupply = Array(player.inactive.merchant).fill(null);
 
     return (
-        <Stack style={{ position: 'absolute', top:350}}>
+        <Stack style={{ position: 'absolute', top:630}}>
             <Paper>
                 Actions Remaining = {player.actionsRemaining}
             </Paper>
