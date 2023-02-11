@@ -59,6 +59,11 @@ export function Claim({ G, ctx, events }, city, edge, type, office, i) {
         G.players[p].score += 1;
     })
 
+    // Get points if you land on the coin
+    if (cities[city].gold === office.color) {
+        player.score += 1;
+    }
+
     // Place the piece in the office
     G.board.cities[city].player[i] = ctx.currentPlayer; 
     G.board.cities[city].type[i] = type; 

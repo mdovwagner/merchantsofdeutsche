@@ -42,6 +42,16 @@ export function Office(props) {
         stroke: "black",
         visibility: (officeExists) ? "visible" : "hidden"
     }
+    const goldStyle = {
+        fill: "#FFDF00",
+        strokeWidth: 2,
+        stroke: "black",
+        visibility: (officeExists) ? "visible" : "hidden"
+    }
+    const textStyle = {
+        // fontFamily: "Gamja Flower",
+        strokeWidth: 0,
+    }
     return (
         <div
             ref={drop}
@@ -55,6 +65,12 @@ export function Office(props) {
                     (<rect x={6.5} y={6.5} width={length * 2} height={length * 2} style={officeStyle} />
                     )
                 }
+                {(props.hasGold) ? (
+                    <g>
+                        <ellipse cx={radius + 2} cy={radius + 2} rx={length-3} ry={length-3} style={goldStyle} />
+                        <text x={radius + 2} y={radius + 8} textAnchor="middle" style={textStyle}>1</text>
+                    </g>
+                ) : <div></div>}
             </svg>
         </div>
     )

@@ -72,7 +72,7 @@ export function City(props) {
                 board={props.board}
                 city={props.city}
                 dragHandler={props.claimOffice}
-
+                hasGold={(props.city.gold === office.color)}
             />
             </div>
         )}
