@@ -1,4 +1,5 @@
 import { INVALID_MOVE } from 'boardgame.io/core';
+import getNext, { getActiones, getIncome, getLiber, getPrivilegium } from '../static/boardProgression';
 import { edges } from "../static/edges";
 import { CheckEndTurn } from "./CheckEndTurn";
 import { changeMessage } from "./Message";
@@ -37,20 +38,22 @@ export function ClaimSpecial({ G, ctx, events }, cityName) {
     switch (cityName) {
         case "Groningen": 
             // Liber
-            curPlayer.liber += 1;
+            curPlayer.liber = getNext(getLiber, curPlayer.liber);
             break;
         case "Stade": 
             // Privilegium
-            curPlayer.privilegium = "orange";
+            curPlayer.privilegium = getNext(getPrivilegium, curPlayer.privilegium);
             break;
         case "Lubeck": 
             // income
-            curPlayer.income += 1;
+            curPlayer.income = getNext(getIncome, curPlayer.income);
             break;
         case "Gottingen": 
             // income
-            curPlayer.actiones += 1;
-            curPlayer.actionsRemaining += 1;
+            curPlayer.actiones = getNext(getActiones, curPlayer.actiones);
+            // Updated current actions if player just gained an action
+            console.log(getActiones[curPlayer.actiones], getActiones[curPlayer.actiones-1])
+            curPlayer.actionsRemaining += (getActiones[curPlayer.actiones] - getActiones[curPlayer.actiones-1]);
             break;
         case "Halle": 
             // income

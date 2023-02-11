@@ -8,11 +8,11 @@ function PlayerModel(i) {
             id: -1, // ID Assigned by game
 
             // PlayerBoard items
-            actiones: 2,
-            keys: 1,
-            privilegium: "white",
-            income: 3,
-            liber: 2,
+            actiones: 0,
+            keys: 0,
+            privilegium: 0,
+            income: 0,
+            liber: 0,
 
             //Other
             score: 0,

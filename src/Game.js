@@ -9,6 +9,7 @@ import { Collect } from './moves/Collect.js';
 import { Displace } from './moves/Displace.js';
 import { BeDisplaced } from './moves/BeDisplaced.js';
 import { changeMessage, endMessage } from "./moves/Message";
+import { getActiones } from "./static/boardProgression";
 
 
 
@@ -54,7 +55,7 @@ let turns = {
         // ctx.events.setActivePlayers({ currentPlayer: 'draw', others: 'wait' });
         console.log("Begin")
         changeMessage({G, ctx}, { valid: true, text: "Your turn " + ctx.currentPlayer, type: "info" });
-        G.players[ctx.currentPlayer].actionsRemaining = G.players[ctx.currentPlayer].actiones;
+        G.players[ctx.currentPlayer].actionsRemaining = getActiones[G.players[ctx.currentPlayer].actiones];
         events.setActivePlayers({ currentPlayer: 'normal', others: "wait"});
     },
     stages: {

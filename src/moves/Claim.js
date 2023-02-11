@@ -1,4 +1,5 @@
 import { INVALID_MOVE } from 'boardgame.io/core';
+import { getPrivilegium } from '../static/boardProgression';
 import { cities } from '../static/cities';
 import { CheckEndTurn } from "./CheckEndTurn";
 import { changeMessage } from "./Message";
@@ -30,7 +31,7 @@ export function Claim({ G, ctx, events }, city, edge, type, office, i) {
     }
 
     // Make sure they have enough priviledge
-    if (player.privilegium !== staticOffice.color) {
+    if (getPrivilegium[player.privilegium] !== staticOffice.color) {
         changeMessage({ G, ctx }, {
             valid: true,
             text: "You don't have " + office.color + " priviledge.",
