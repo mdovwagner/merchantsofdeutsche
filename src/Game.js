@@ -4,6 +4,7 @@ import { cities } from './static/cities.js';
 import { Place } from './moves/Place.js';
 import { Move } from './moves/Move.js';
 import { Claim } from './moves/Claim.js';
+import { ClaimSpecial } from './moves/ClaimSpecial.js';
 import { Collect } from './moves/Collect.js';
 import { Displace } from './moves/Displace.js';
 import { BeDisplaced } from './moves/BeDisplaced.js';
@@ -59,7 +60,7 @@ let turns = {
     stages: {
         
         displace: {moves: { BeDisplaced, changeMessage, endMessage } },
-        normal: {moves: {Collect, Place, Move, Claim, Displace, changeMessage, endMessage}},
+        normal: {moves: {Collect, Place, Move, Claim, ClaimSpecial, Displace, changeMessage, endMessage}},
         wait: {moves: {changeMessage, changeMessage, endMessage}}
 
     },

@@ -129,6 +129,7 @@ export function Board(props) {
                     city = {city}
                     index = {i}
                     claimOffice={props.claimOffice}
+                    handleSpecial={props.handleSpecial}
                     currentPlayer={props.currentPlayer}
                 />
             )}

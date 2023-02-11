@@ -74,6 +74,11 @@ export function MerchantsOfDeutscheTable({ctx, G, moves, playerID}) {
         }
     }
 
+    let claimSpecial = (cityName) => {
+        console.log("Claim Power from "+ cityName);
+        moves.ClaimSpecial(cityName);
+    }
+
     let collectIncome = (type) => {
         moves.Collect(type);
     }
@@ -104,6 +109,7 @@ export function MerchantsOfDeutscheTable({ctx, G, moves, playerID}) {
                 moveTrader = {moveTrader}
                 displace={displace}
                 claimOffice = {claimOffice}
+                handleSpecial = {claimSpecial}
                 currentPlayer={ctx.currentPlayer}
                 />
             </Paper>

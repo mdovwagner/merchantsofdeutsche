@@ -14,32 +14,11 @@ export function City(props) {
     const x = 50;
     const y = 40;
 
-    let renderOffice = (office, i, citySelected) => {
-        let dx = [-45, -25, -5, +15];
-        let dy = [-20, -20, -20, -20];
-        let move = "translate(" + (x + dx[i]) + " " + (y + dy[i]) + ") scale(0.2)"
-        const officeExists = true;
-        const officeColor = priviledgeColors[office.color]
-
-        const player = props.board.cities[props.city.id].player[i];
-        const playerColor = (playerColors[player] || {}).color;
-        const playerStyle = {
-            fill: playerColor,
-            visibility: (player) ? "visible" : "hidden"
+    const yellowCities = ["Groningen", "Coellen", "Stade", "Lubeck", "Gottingen", "Halle"];
+    let handleClick = (event, cityName) => {
+        if (yellowCities.includes(cityName)) {
+            props.handleSpecial(cityName);
         }
-        const officeStyle = {
-            fill: officeColor,
-            strokeWidth: 10,
-            stroke: "black",
-            visibility: (officeExists) ? "visible" : "hidden"
-        }
-        return (
-            <g key={"Office"+i} transform={move} >
-                <path style={officeStyle} d="M 2 2 L 98 2 L 98 98 L 2 98 Z" />
-                <path style={playerStyle} d="M 15 15 L 85 15 L 85 85 L 15 85 Z" />
-            </g>
-        )
-
     }
 
 
@@ -50,8 +29,10 @@ export function City(props) {
         fontFamily: "Gamja Flower",
         strokeWidth: 0,
     }
+    const isSpecial = yellowCities.includes(props.city.id);
     const fgStyle = {
-        fill: "#B99976",
+        fill: (isSpecial) ? "#FFDF00" : "#B99976",
+        cursor: (isSpecial) ? "pointer" : "default",
     }
     // const citySelected = props.selectedCities.includes(props.city.id);
     // if (citySelected) {
@@ -79,7 +60,7 @@ export function City(props) {
         <defs>
             <style type="text/css">@import url('https://fonts.googleapis.com/css?family=Indie+Flower|Gamja+Flower|Xanh+Mono');</style>
         </defs>
-        <ellipse style={fgStyle} cx={x} cy={y} rx="40" ry="15" />
+        <ellipse style={fgStyle} cx={x} cy={y} rx="40" ry="15" onClick={(event) => { handleClick(event, props.city.id) }} />
         <rect x={x - textWidth / 2} y={y + 10} width={textWidth} height="20" style={labelStyle}>{props.city.id}</rect>
         <text x={x} y={y + 25} textAnchor="middle" style={textStyle}>{props.city.id}</text>
         </svg>
