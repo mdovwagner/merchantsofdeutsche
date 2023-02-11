@@ -1,4 +1,5 @@
 import { INVALID_MOVE } from 'boardgame.io/core';
+import { whoControls } from '../models/BoardModel';
 import getNext, { getActiones, getIncome, getLiber, getPrivilegium } from '../static/boardProgression';
 import { edges } from "../static/edges";
 import { CheckEndTurn } from "./CheckEndTurn";
@@ -33,6 +34,13 @@ export function ClaimSpecial({ G, ctx, events }, cityName) {
         // Can't do anything with Coellen
         return INVALID_MOVE;
     }
+
+    // Check who controlls the city (on both sides) and give them a point 
+    let controllers = whoControls(G.board, edge.source+edge.target);
+    console.log("Controllers of " + edge.source + edge.target + " =" + controllers);
+    controllers.forEach((p) => {
+        G.players[p].score += 1;
+    })
 
     // Get a new power
     switch (cityName) {
