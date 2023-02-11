@@ -1,7 +1,7 @@
 import { cities } from '../static/cities.js';
 import { edgeLookup, edges } from '../static/edges.js';
 
-function BoardModel() {
+export default function BoardModel() {
 
 
     var cityStates = {};
@@ -29,4 +29,17 @@ function BoardModel() {
     );
 }
 
-export default BoardModel
+export function whoControls(board, edgeName) {
+    let road = board.roads[edgeName];
+    let adjCities = [road.source, road.target];
+    let controllers = adjCities.map((cityID) => {
+        let players = board.cities[cityID].player;
+        let playersInCity = players.filter((p) => p !== null);
+        // Get the max number of players.
+        // If a tie (very likely), player farthest to the right
+
+        return (playersInCity.length > 0) ? playersInCity[playersInCity.length -1] : null;
+    })
+    let filteredControllers = controllers.filter((p)=> p !== null);
+    return filteredControllers;
+}

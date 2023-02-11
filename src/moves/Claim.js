@@ -1,4 +1,5 @@
 import { INVALID_MOVE } from 'boardgame.io/core';
+import { whoControls } from '../models/BoardModel';
 import { getPrivilegium } from '../static/boardProgression';
 import { cities } from '../static/cities';
 import { CheckEndTurn } from "./CheckEndTurn";
@@ -41,17 +42,22 @@ export function Claim({ G, ctx, events }, city, edge, type, office, i) {
     }
 
     // Make sure the types match of the placed piece
-    if (staticOffice.type !== type) {
-        changeMessage({ G, ctx }, {
-            valid: true,
-            text: "Claimed with a " + type,
-            type: "error"
-        });
-        return;
-    }
+    // if (staticOffice.type !== type) {
+    //     changeMessage({ G, ctx }, {
+    //         valid: true,
+    //         text: "Claimed with a " + type,
+    //         type: "error"
+    //     });
+    //     return;
+    // }
 
     // ALL GOOD?
     // Check who controlls the city (on both sides) and give them a point 
+    let controllers = whoControls(G.board, edge);
+    console.log("Controllers of " + edge + " =" + controllers);
+    controllers.forEach ( (p) => {
+        G.players[p].score += 1;
+    })
 
     // Place the piece in the office
     G.board.cities[city].player[i] = ctx.currentPlayer; 
