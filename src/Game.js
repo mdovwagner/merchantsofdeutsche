@@ -2,14 +2,14 @@ import BoardModel, { whoControls } from "./models/BoardModel";
 import PlayerModel from "./models/PlayerModel";
 import { cities } from './static/cities.js';
 import { Place } from './moves/Place.js';
-import { Move } from './moves/Move.js';
+import { Move, EndMove } from './moves/Move.js';
 import { Claim } from './moves/Claim.js';
 import { ClaimSpecial } from './moves/ClaimSpecial.js';
-import { Collect } from './moves/Collect.js';
+import { Collect, EndCollect } from './moves/Collect.js';
 import { Displace } from './moves/Displace.js';
 import { BeDisplaced } from './moves/BeDisplaced.js';
 import { changeMessage, endMessage } from "./moves/Message";
-import { getActiones } from "./static/boardProgression";
+import { getActiones, getIncome, getLiber } from "./static/boardProgression";
 
 
 
@@ -61,12 +61,17 @@ let turns = {
         console.log("Begin")
         changeMessage({G, ctx}, { valid: true, text: "Your turn " + ctx.currentPlayer, type: "info" });
         G.players[ctx.currentPlayer].actionsRemaining = getActiones[G.players[ctx.currentPlayer].actiones];
+        G.players[ctx.currentPlayer].liberRemaining = getLiber[G.players[ctx.currentPlayer].liber];
+        G.players[ctx.currentPlayer].incomeRemaining = getIncome[G.players[ctx.currentPlayer].income];
         events.setActivePlayers({ currentPlayer: 'normal', others: "wait"});
     },
     stages: {
         
         displace: {moves: { BeDisplaced, changeMessage, endMessage } },
-        normal: {moves: {Collect, Place, Move, Claim, ClaimSpecial, Displace, changeMessage, endMessage}},
+        collect: { moves: {Collect, EndCollect, changeMessage, endMessage}},
+        move: { moves: {Move, EndMove, changeMessage, endMessage}},
+        claim: { moves: {Claim, ClaimSpecial, endMessage}},
+        normal: {moves: {Place, Displace, changeMessage, endMessage}},
         wait: {moves: {changeMessage, changeMessage, endMessage}}
 
     },

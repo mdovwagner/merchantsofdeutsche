@@ -1,9 +1,25 @@
 import { Button, Grid, Paper, Stack } from "@mui/material";
+import { useDrop } from "react-dnd";
 import { getActiones, getIncome, getKeys, getLiber, getPrivilegium } from "../static/boardProgression";
+import { ItemTypes } from "../static/constants";
 import { Trader } from "./board/Trader";
 
 export default function PlayerBoard(props) {
-    console.log(props.playerID);
+    const [{ isOver }, drop] = useDrop(
+        () => ({
+            accept: ItemTypes.TRADER,
+            drop: (item, monitor) => dragHandler(item),
+            collect: (monitor) => ({
+                isOver: !!monitor.isOver()
+            })
+        }),
+        []
+    )
+
+    let dragHandler = (it) => {
+        props.dragHandler(it);
+    }
+
     const player = props.players[props.playerID];
 
     const fgStyle = {
@@ -25,7 +41,7 @@ export default function PlayerBoard(props) {
                 Score: {player.score},  Actions Remaining = {player.actionsRemaining}
             </Paper>
             <hr />
-            <Paper style={{display: 'flex'}} className="ActiveSupply">
+            <Paper style={{display: 'flex'}} className="ActiveSupply" ref={drop}>
                 {activeTraderSupply.map((_, i) => 
                 <div key={"activeT"+i}>
                     <Trader source={"active"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"trader"}currentPlayer={props.currentPlayer}/>
@@ -44,13 +60,6 @@ export default function PlayerBoard(props) {
                     <Grid item xs={4}>Liber Sophiae: {getLiber[player.liber]}</Grid>
                     <Grid item xs={4}>Money Bags: {getIncome[player.income]}</Grid>
                 </Grid>
-            <Paper className="PlayerButtons">
-                <Button onClick={(event) => { props.collectIncome("trader") }}>Collect</Button>
-                <Button>Place</Button>
-                <Button>Move</Button>
-                <Button>Claim</Button>
-                <Button>End Turn</Button>
-            </Paper>
             <Paper style={{ display: 'flex' }} className="InactiveSupply">
                 {inactiveTraderSupply.map((_, i) =>
                 <div key={"inactiveT"+i}>

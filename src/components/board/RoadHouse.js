@@ -17,7 +17,6 @@ export default function RoadHouse(props) {
     )
 
     let dragHandler = (it, e, i ,p) => {
-        console.log(it);
         props.dragHandler(it, e, i, p);
     }
 

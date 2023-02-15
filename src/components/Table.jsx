@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Board } from './board/Board';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
@@ -31,7 +31,7 @@ const theme = createTheme({
         },
     },
 });
-export function MerchantsOfDeutscheTable({ctx, G, moves, playerID}) {
+export function MerchantsOfDeutscheTable({ctx, G, moves, events, playerID}) {
 
     let endMessage = () => {
         moves.endMessage(playerID);
@@ -51,6 +51,10 @@ export function MerchantsOfDeutscheTable({ctx, G, moves, playerID}) {
         if (item.source === "edge") {
             console.log("from Edge " + item.edge.source + item.edge.target)
             console.log("to Edge " + edge.source + edge.target)
+            // setFromMoves(oldMoves => [...oldMoves, {edge: item.edge.source + item.edge.target, i: item.i}]);
+            // setToMoves(oldMoves => [...oldMoves, {edge: edge.source + edge.target, i: i}]);
+            // console.log("New From Moves", fromMoves);
+            // console.log("New To Moves", toMoves);
             moves.Move(item.edge.source+item.edge.target, item.i,edge.source+edge.target, i);
         } else if (item.source === "active") {
             playCube(edge.source + edge.target, item.type, i)
@@ -63,7 +67,7 @@ export function MerchantsOfDeutscheTable({ctx, G, moves, playerID}) {
 
     let claimOffice = (item, city, office, i) => {
         if (item.source === "edge") {
-            console.log("Claim "+ office.color + " " + city);
+            console.log("Claim "+ office.color + office.type + +item.type+ " " + city );
             moves.Claim(city, item.edge.source+item.edge.target, item.type, office, i);
         } else {
             moves.changeMessage({
@@ -79,8 +83,8 @@ export function MerchantsOfDeutscheTable({ctx, G, moves, playerID}) {
         moves.ClaimSpecial(cityName);
     }
 
-    let collectIncome = (type) => {
-        moves.Collect(type);
+    let collectIncome = (item) => {
+        moves.Collect(item.type);
     }
 
     let displace = (item, edge, type, i) => {
@@ -88,9 +92,32 @@ export function MerchantsOfDeutscheTable({ctx, G, moves, playerID}) {
         moves.Displace(edge.source+edge.target, item.type, i);
     }
 
+    let changeStage = (stage) => {
+        console.log("Start "+stage);
+        events.setStage(stage);
+    }
+
+    let endStage = () => {
+        console.log("End Stage");
+        events.setStage("normal");
+    }
+
+    let endMove = () => {
+        console.log("End Move");
+        moves.EndMove();
+    }
+
+    let endCollect = () => {
+        console.log("End Collect");
+        moves.EndCollect();
+    }
+
+    const [fromMoves, setFromMoves] = useState([]);
+    const [toMoves, setToMoves] = useState([]);
+
+
     const myTurn = ctx.currentPlayer === playerID;
     let player = G.players[playerID];
-    console.log(player.message);
     const playerColor = playerColors[playerID];
 
 
@@ -118,7 +145,7 @@ export function MerchantsOfDeutscheTable({ctx, G, moves, playerID}) {
                 players={G.players}
                 playerID={playerID}
                 currentPlayer={ctx.currentPlayer}
-                collectIncome={collectIncome}
+                dragHandler={collectIncome}
             />
             </Paper>
             <ActionBar currentPlayer={ctx.currentPlayer}
@@ -128,8 +155,13 @@ export function MerchantsOfDeutscheTable({ctx, G, moves, playerID}) {
                 // trashRoute={this.trashRoute}
                 alertPlayer={alertPlayer}
                 gameover={ctx.gameover}
-                administrator={() => moves.administrator()}
+                changeStage={changeStage}
+                endStage={endStage}
                 myTurn={myTurn}
+                liberRemaining={player.liberRemaining}
+                incomeRemaining={player.incomeRemaining}
+                endMove={endMove}
+                endCollect={endCollect}
             />
         </DndProvider>
             <SnackbarDialog playerID={playerID} message={player.message} endMessage={endMessage} />

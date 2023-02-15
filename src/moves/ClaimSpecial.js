@@ -78,6 +78,8 @@ export function ClaimSpecial({ G, ctx, events }, cityName) {
 
     // Get a new trader / merchant to active supply
     curPlayer.active[(cityName === "Groningen") ? "merchant" : "trader"] += 1;
+
+    events.setStage("normal");
     CheckEndTurn({ G, ctx, events });
 
 }

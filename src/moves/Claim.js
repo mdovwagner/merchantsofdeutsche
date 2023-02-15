@@ -32,7 +32,9 @@ export function Claim({ G, ctx, events }, city, edge, type, office, i) {
     }
 
     // Make sure they have enough priviledge
-    if (getPrivilegium[player.privilegium] !== staticOffice.color) {
+    const colorToNum = {"white": 0, "orange": 1, "pink": 2, "black": 3}
+
+    if (player.privilegium < colorToNum[office.color]) {
         changeMessage({ G, ctx }, {
             valid: true,
             text: "You don't have " + office.color + " priviledge.",
@@ -77,6 +79,6 @@ export function Claim({ G, ctx, events }, city, edge, type, office, i) {
 
 
 
-
+    events.setStage("normal");
     CheckEndTurn({ G, ctx, events });
 }
