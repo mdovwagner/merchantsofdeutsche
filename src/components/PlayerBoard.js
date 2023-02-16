@@ -2,7 +2,35 @@ import { Button, Grid, Paper, Stack } from "@mui/material";
 import { useDrop } from "react-dnd";
 import { getActiones, getIncome, getKeys, getLiber, getPrivilegium } from "../static/boardProgression";
 import { ItemTypes } from "../static/constants";
+import { playerColors } from "../static/playerColors";
 import { Trader } from "./board/Trader";
+
+
+function drawPlayerRow(array, kind, type, player, currentPlayer) {
+    const radius = 15;
+    const length = radius * 1.4 / 2;
+    const fill = (player.id !== null) ? playerColors[player.id].color : "#B99976"
+    const officeStyle = {
+        fill: fill,
+        strokeWidth: 2,
+        stroke: "black",
+    }
+    return (
+        <svg width={120} height={2 * radius + 4}>
+        {array.map((k, i) =>
+            <g key={"Row" + kind + i}>
+                {(player[kind] < i) ? (
+                    <g>
+                    <rect x={6.5 + 30 * i} y={6.5} width={length * 2} height={length * 2} style={officeStyle} />
+                    <text x={6.5 + length/2 + 30 * i} y={12 + length}>{k}</text>
+                    </g>
+                ) : (<text x={6.5 + length / 2 + 30 * i} y={12 + length}>{k}</text>
+                )}
+            </g>
+        )}
+        </svg>
+        );
+}
 
 export default function PlayerBoard(props) {
     const [{ isOver }, drop] = useDrop(
@@ -54,20 +82,30 @@ export default function PlayerBoard(props) {
                 )}
             </Paper>
             <Grid className="Mat" container spacing={2} >
-                    <Grid item xs={6}>Keys: {getKeys[player.keys]}</Grid>
-                    <Grid item xs={6}>Actiones: {getActiones[player.actiones]}</Grid>
-                    <Grid item xs={4}>Privilegium: {getPrivilegium[player.privilegium]}</Grid>
-                    <Grid item xs={4}>Liber Sophiae: {getLiber[player.liber]}</Grid>
-                    <Grid item xs={4}>Money Bags: {getIncome[player.income]}</Grid>
+                <Grid item xs={6} style={{ display: 'flex' }}>
+                    Keys: {drawPlayerRow(getKeys, "keys", "trader", player, props.currentPlayer)}
                 </Grid>
-            <Paper style={{ display: 'flex' }} className="InactiveSupply">
+                <Grid item xs={6} style={{display: 'flex'}}>
+                    Actiones: {drawPlayerRow(getActiones, "actiones", "trader", player, props.currentPlayer)}
+                </Grid>
+                <Grid item xs={4} style={{display: 'flex'}}>
+                    Privilegium: { drawPlayerRow(getPrivilegium, "privilegium", "trader", player, props.currentPlayer)}
+                </Grid>
+                <Grid item xs={4} style={{display: 'flex'}}>
+                    Liber Sophiae: {drawPlayerRow(getLiber, "liber", "merchant", player, props.currentPlayer)}
+                </Grid>
+                <Grid item xs={4} style={{display: 'flex'}}>
+                    Money Bags: {drawPlayerRow(getIncome, "income", "trader", player, props.currentPlayer)}
+                    </Grid>
+            </Grid>
+            <Paper style={{ display: 'flex' }} className="InactiveSupply" >
                 {inactiveTraderSupply.map((_, i) =>
-                <div key={"inactiveT"+i}>
+                <div key={"inactiveT"+i} onClick={(event) => { props.dragHandler({type: "trader"})}}>
                     <Trader source={"inactive"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"trader"} currentPlayer={props.currentPlayer}/>
                 </div>
                 )}
                 {inactiveMerchantSupply.map((_, i) =>
-                <div key={"inactiveM"+i}>
+                <div key={"inactiveM"+i} onClick={(event) => { props.dragHandler({type: "merchant"})}}>
                     <Trader source={"inactive"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"merchant"} currentPlayer={props.currentPlayer}/>
                 </div>
                 )}

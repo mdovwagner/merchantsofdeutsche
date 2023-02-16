@@ -101,7 +101,7 @@ export function Board(props) {
     //     borderColor: (myStage) ? "black" : "#987554"
     // }
     const oStyle = {
-        backgroundColor: "tan",
+        background: "tan",
         border: 3,
         borderColor: "#987554",
         /* border-color: #664229; */
@@ -110,7 +110,7 @@ export function Board(props) {
     }
 
     return (<Paper className="section" style={oStyle}>
-        <div className={classes.root}>
+        <div>
             {Object.values(edges).map((edge, i) =>
                 <Edge key={"E" + i}
                     board={props.board}

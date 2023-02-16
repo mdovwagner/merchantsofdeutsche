@@ -60,7 +60,7 @@ export function City(props) {
         <defs>
             <style type="text/css">@import url('https://fonts.googleapis.com/css?family=Indie+Flower|Gamja+Flower|Xanh+Mono');</style>
         </defs>
-        <rect rx="5" style={fgStyle} x={x - numOffices * 15} y={y - 20} width={numOffices * 30} height={30} onClick={(event) => { handleClick(event, props.city.id) }} />
+        <rect rx="5" style={fgStyle} x={x - numOffices * 15} y={y - 30} width={numOffices * 30} height={40} onClick={(event) => { handleClick(event, props.city.id) }} />
         <rect x={x - textWidth / 2} y={y + 10} width={textWidth} height="20" style={labelStyle}>{props.city.id}</rect>
         <text x={x} y={y + 25} textAnchor="middle" style={textStyle}>{props.city.id}</text>
         </svg>
