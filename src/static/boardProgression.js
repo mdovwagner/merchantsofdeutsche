@@ -2,7 +2,7 @@ export const getPrivilegium = ['white', 'orange', 'pink', 'black'];
 
 export const getKeys = [1, 2, 2, 3, 4];
 
-export const getActiones = [10, 3, 3, 4, 4, 5];
+export const getActiones = [2, 3, 3, 4, 4, 5];
 
 export const getLiber = [2, 3, 4, 5];
 

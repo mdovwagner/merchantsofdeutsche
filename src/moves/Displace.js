@@ -39,8 +39,9 @@ export function Displace({ G, ctx, events }, edge, type, i) {
     // Move opponents' cube back to inactive supply (BUG can move other)
     // TODO: Change to it's own area in the corner of the screen?
     G.players[displacedPlayerID].inactive[displacedType] += 1;
+    G.players[displacedPlayerID].displacedRemaining = (type === "merchant") ? 3 : 2;
 
-    events.setActivePlayers({ currentPlayer: "normal", others: 'displace' });
+    events.setActivePlayers({ currentPlayer: "wait", others: 'displace' });
     
     
 

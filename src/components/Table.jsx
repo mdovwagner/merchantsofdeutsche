@@ -160,6 +160,7 @@ export function MerchantsOfDeutscheTable({ctx, G, moves, events, playerID}) {
                 myTurn={myTurn}
                 liberRemaining={player.liberRemaining}
                 incomeRemaining={player.incomeRemaining}
+                displacedRemaining={player.displacedRemaining}
                 endMove={endMove}
                 endCollect={endCollect}
             />

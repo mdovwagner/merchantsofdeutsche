@@ -24,14 +24,19 @@ export default function ActionBar(props) {
         position: 'absolute', top: 830,
 
     }
+    let stage = props.activePlayers[props.playerID];
 
     if (props.playerID !== props.currentPlayer) {
-        message = "Wait for your turn...";
-        buttons = [<Button key="timer" variant="contained" color="primary" onClick={props.alertPlayer} endIcon={<HourglassEmptyIcon />}>
-            David Green taking too long...
-        </Button>]
+        if (stage === "displace") {
+            message = "Play up to "+ props.displacedRemaining + " traders from the Inactive Supply";
+            buttons = [];
+        } else {
+            message = "Wait for your turn...";
+            buttons = [<Button key="timer" variant="contained" color="primary" onClick={props.alertPlayer} endIcon={<HourglassEmptyIcon />}>
+                David Green taking too long...
+            </Button>]
+        }
     } else if (props.activePlayers !== null) {
-        let stage = props.activePlayers[props.currentPlayer];
         switch (stage) {
             case "collect":
                 message = "Collect up to " + props.incomeRemaining + " traders from Inactive Supply";
@@ -62,6 +67,10 @@ export default function ActionBar(props) {
                 buttons = [<Button key="done" variant="contained" color="primary" onClick={props.endStage} endIcon={<DoneIcon />}>
                     Done
                 </Button>]
+                break;
+            case "wait":
+                message = "Wait for Player to React to Displacement";
+                buttons = []
                 break;
             default:
                 message = "Choose an Action: "
