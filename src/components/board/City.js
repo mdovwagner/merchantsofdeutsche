@@ -31,7 +31,7 @@ export function City(props) {
     }
     const isSpecial = yellowCities.includes(props.city.id);
     const fgStyle = {
-        fill: (isSpecial) ? "#FFDF00" : "#B99976",
+        fill: (isSpecial) ? "#FFDF00" : props.city.color,
         cursor: (isSpecial) ? "pointer" : "default",
     }
     // const citySelected = props.selectedCities.includes(props.city.id);
@@ -49,10 +49,10 @@ export function City(props) {
 
     const players = props.board.cities[props.city.id].player;
     const types = props.board.cities[props.city.id].type;
-    let dx = [-45, -25, -5, +15];
+    const numOffices = props.city.offices.length;
     return (
         <div key={"city" + props.index} style={{ position: 'absolute', top, left }}>
-        <svg  width={105} height={120}//onClick={(event) => { props.selectCity(props.city.id) }}
+        <svg width={120} height={120}//onClick={(event) => { props.selectCity(props.city.id) }}
         // onMouseEnter={e => props.highlightCity(props.city.id)}
         // onMouseLeave={e => unhighlightCity(props.city.id)}
         style={{ strokeWidth: 2, stroke: "black" }}
@@ -60,7 +60,7 @@ export function City(props) {
         <defs>
             <style type="text/css">@import url('https://fonts.googleapis.com/css?family=Indie+Flower|Gamja+Flower|Xanh+Mono');</style>
         </defs>
-        <ellipse style={fgStyle} cx={x} cy={y} rx="40" ry="15" onClick={(event) => { handleClick(event, props.city.id) }} />
+        <rect rx="5" style={fgStyle} x={x - numOffices * 15} y={y - 20} width={numOffices * 30} height={30} onClick={(event) => { handleClick(event, props.city.id) }} />
         <rect x={x - textWidth / 2} y={y + 10} width={textWidth} height="20" style={labelStyle}>{props.city.id}</rect>
         <text x={x} y={y + 25} textAnchor="middle" style={textStyle}>{props.city.id}</text>
         </svg>
@@ -71,6 +71,7 @@ export function City(props) {
                 i={i}
                 board={props.board}
                 city={props.city}
+                numOffices={props.city.offices.length}
                 dragHandler={props.claimOffice}
                 hasGold={(props.city.gold === office.color)}
             />
@@ -78,7 +79,7 @@ export function City(props) {
         )}
         {props.city.offices.map((office, i) =>
             <div key={"OfficeT" + i}
-                style={{ position: 'absolute', top: 23, left: 33 + dx[i] }}>
+                style={{ position: 'absolute', top: 23, left: 33 + numOffices * (-15) + 15 + (i * 30) }}>
                 <Trader
                     source={"city"}
                     edge={null}

@@ -24,13 +24,13 @@ export const cities = {
     
     Hamburg: { id: 'Hamburg', nick: 'Hm', x: 995, y: 50, color: "#aaaaff", type: 'empty', offices: [{color: "white", type: "trader"}, {color: "orange", type: "trader"}, {color: "black", type: "trader"}], gold: ""},
     Lubeck: { id: 'Lubeck', nick: 'Lu', x: 1175, y: 50, color: "#aaaaff", type: 'empty', offices: [{color: "white", type: "trader"}, {color: "pink", type: "trader"}], gold: "white"},
-    Luneburg: { id: 'Luneburg', nick: 'Ln', x: 1020, y: 170, color: "#aaaaff", type: 'empty', offices: [{color: "white", type: "merchant"}], gold: ""},
+    Luneburg: { id: 'Luneburg', nick: 'Ln', x: 1050, y: 200, color: "#aaaaff", type: 'empty', offices: [{color: "white", type: "merchant"}], gold: ""},
     Perleberg: { id: 'Perleberg', nick: 'Pe', x: 1230, y: 140, color: "#aaaaff", type: 'empty', offices: [{color: "white", type: "trader"}, {color: "pink", type: "trader"}, {color: "black", type: "merchant"}], gold: ""},
     Brunswick: { id: 'Brunswick', nick: 'Bu', x: 950, y: 280, color: "#aaaaff", type: 'empty', offices: [{color: "orange", type: "trader"}, ], gold: ""},
     Stendal: { id: 'Stendal', nick: 'St', x: 1225, y: 300, color: "#aaaaff", type: 'empty', offices: [{ color: "white", type: "trader" }, {color: "white", type: "merchant"}, {color: "orange", type: "trader"}, {color: "pink", type: "trader"}], gold: ""},
     Goslar: { id: 'Goslar', nick: 'Gs', x: 1045, y: 400, color: "#aaaaff", type: 'empty', offices: [{color: "white", type: "trader"}], gold: ""},
     Magdeburg: { id: 'Magdeburg', nick: 'Ma', x: 1230, y: 440, color: "#aaaaff", type: 'empty', offices: [{color: "white", type: "merchant"}, {color: "orange", type: "trader"}], gold: ""},
-    Quedlinburg: { id: 'Quedlinburg', nick: 'Qu', x: 1075, y: 470, color: "#aaaaff", type: 'empty', offices: [{color: "orange", type: "merchant"}, {color: "pink", type: "merchant"}], gold: ""},
+    Quedlinburg: { id: 'Quedlinburg', nick: 'Qu', x: 960, y: 545, color: "#aaaaff", type: 'empty', offices: [{color: "orange", type: "merchant"}, {color: "pink", type: "merchant"}], gold: ""},
     Halle: { id: 'Halle', nick: 'Ha', x: 1195, y: 515, color: "#aaaaff", type: 'empty', offices: [{color: "white", type: "trader"}, {color: "orange", type: "trader"}], gold: "white"},
 
 }
