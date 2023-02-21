@@ -47,8 +47,9 @@ export default function PlayerBoard(props) {
     let dragHandler = (it) => {
         props.dragHandler(it);
     }
-
+    let stage = props.activePlayers[props.playerID];
     const player = props.players[props.playerID];
+    const isMyTurn = (props.playerID == props.currentPlayer) || (stage === "displace");
 
     const fgStyle = {
         fill: "#B99976",
@@ -72,12 +73,12 @@ export default function PlayerBoard(props) {
             <Paper style={{display: 'flex'}} className="ActiveSupply" ref={drop}>
                 {activeTraderSupply.map((_, i) => 
                 <div key={"activeT"+i}>
-                    <Trader source={"active"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"trader"}currentPlayer={props.currentPlayer}/>
+                    <Trader source={"active"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"trader"}currentPlayer={props.currentPlayer} isMyTurn={isMyTurn}/>
                 </div>
                 )}
                 {activeMerchantSupply.map((_, i) => 
                 <div key={"activeM"+i}>
-                    <Trader source={"active"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"merchant"}currentPlayer={props.currentPlayer}/>
+                    <Trader source={"active"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"merchant"}currentPlayer={props.currentPlayer} isMyTurn={isMyTurn}/>
                 </div>
                 )}
             </Paper>
@@ -101,12 +102,12 @@ export default function PlayerBoard(props) {
             <Paper style={{ display: 'flex' }} className="InactiveSupply" >
                 {inactiveTraderSupply.map((_, i) =>
                 <div key={"inactiveT"+i} onClick={(event) => { props.dragHandler({type: "trader"})}}>
-                    <Trader source={"inactive"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"trader"} currentPlayer={props.currentPlayer}/>
+                    <Trader source={"inactive"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"trader"} currentPlayer={props.currentPlayer} isMyTurn={isMyTurn}/>
                 </div>
                 )}
                 {inactiveMerchantSupply.map((_, i) =>
                 <div key={"inactiveM"+i} onClick={(event) => { props.dragHandler({type: "merchant"})}}>
-                    <Trader source={"inactive"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"merchant"} currentPlayer={props.currentPlayer}/>
+                    <Trader source={"inactive"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"merchant"} currentPlayer={props.currentPlayer} isMyTurn={isMyTurn}/>
                 </div>
                 )}
             </Paper>

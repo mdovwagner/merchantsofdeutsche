@@ -146,6 +146,7 @@ export function MerchantsOfDeutscheTable({ctx, G, moves, events, playerID}) {
                 players={G.players}
                 playerID={playerID}
                 currentPlayer={ctx.currentPlayer}
+                activePlayers={ctx.activePlayers}
                 dragHandler={collectIncome}
             />
             </Paper>

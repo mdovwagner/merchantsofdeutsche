@@ -15,9 +15,14 @@ export function Displace({ G, ctx, events }, edge, type, i) {
     if (type === "merchant" && curPlayer.active["merchant"] + curPlayer.active["trader"] <= 2) {
         return INVALID_MOVE;
     }
-
     const displacedPlayerID = G.board.roads[edge].houses.player[i];
     console.log(displacedPlayerID);
+
+    if (displacedPlayerID == ctx.currentPlayer) {
+        // CANNOT DISPLACE SELF
+        return INVALID_MOVE;
+    }
+
 
     const displacedType = G.board.roads[edge].houses.type[i];
 

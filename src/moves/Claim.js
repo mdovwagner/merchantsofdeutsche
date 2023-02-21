@@ -44,14 +44,14 @@ export function Claim({ G, ctx, events }, city, edge, type, office, i) {
     }
 
     // Make sure the types match of the placed piece
-    // if (staticOffice.type !== type) {
-    //     changeMessage({ G, ctx }, {
-    //         valid: true,
-    //         text: "Claimed with a " + type,
-    //         type: "error"
-    //     });
-    //     return;
-    // }
+    if (staticOffice.type !== type) {
+        changeMessage({ G, ctx }, {
+            valid: true,
+            text: "Claimed with a " + type,
+            type: "error"
+        });
+        return;
+    }
 
     // ALL GOOD?
     // Check who controlls the city (on both sides) and give them a point 
