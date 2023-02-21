@@ -10,28 +10,28 @@ import { ItemTypes } from '../../static/constants';
 
 export function Trader(props) {
 
-
-    // Draggable
-    const [{ isDragging }, drag] = useDrag(() => ({
-        type: ItemTypes.TRADER,
-        item: {
+    const getItem = () => {
+        return {
             source: props.source,
             type: props.type,
             edge: props.edge,
             i: props.i
-        },
+        };
+    }
+
+
+    // Draggable
+    const [{ isDragging }, drag] = useDrag(() => ({
+        type: ItemTypes.TRADER,
+        item: getItem,
         canDrag: () => canMoveTrader(),
         collect: monitor => ({
             isDragging: !!monitor.isDragging(),
         }),
-    }))
+    }), [props.source, props.type, props.edge, props.i, props.isMyTurn])
 
     let canMoveTrader = () => {
-        // console.log(props.source)
-        // console.log(props.i)
-        // console.log(props.isMyTurn);
-        // console.log(props.player, props.currentPlayer);
-        return true; // BUG Why is props.player becomming null?
+        return props.isMyTurn; 
     }
 
     // Droppable (For Displacing)

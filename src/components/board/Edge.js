@@ -107,6 +107,7 @@ export function Edge(props) {
                 type={types[n]}
                 displace={props.displace}
                 isMyTurn={myTurns[n]}
+                road={props.board.roads[props.edge.source + props.edge.target]}
             />
         </div>
         )}

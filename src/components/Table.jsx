@@ -67,6 +67,7 @@ export function MerchantsOfDeutscheTable({ctx, G, moves, events, playerID}) {
 
     let claimOffice = (item, city, office, i) => {
         if (item.source === "edge") {
+            console.log("ITEM",item);
             console.log("Claim "+ office.color + office.type + +item.type+ " " + city );
             moves.Claim(city, item.edge.source+item.edge.target, item.type, office, i);
         } else {

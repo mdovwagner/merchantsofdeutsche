@@ -15,7 +15,7 @@ export function Office(props) {
     )
 
     let dragHandler = (it, c, o, i) => {
-        console.log(c,o,i);
+        console.log("Dragged", it);
         props.dragHandler(it, c, o, i);
     }
 
