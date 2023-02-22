@@ -126,10 +126,22 @@ export function MerchantsOfDeutscheTable({ctx, G, moves, events, playerID}) {
         // <ThemeProvider theme={theme}>
         <Stack style={{ position: 'relative'}}>
         <DndProvider backend={HTML5Backend}>
-            <Paper>
-                {(myTurn) ? 
-                <div className="section">My Turn</div> : <div></div>}
-            </Paper>
+            <ActionBar currentPlayer={ctx.currentPlayer}
+                playerID={playerID}
+                activePlayers={ctx.activePlayers}
+                // scoreCards={this.scoreCards} endTurn={this.endTurn}
+                // trashRoute={this.trashRoute}
+                alertPlayer={alertPlayer}
+                gameover={ctx.gameover}
+                changeStage={changeStage}
+                endStage={endStage}
+                myTurn={myTurn}
+                liberRemaining={player.liberRemaining}
+                incomeRemaining={player.incomeRemaining}
+                displacedRemaining={player.displacedRemaining}
+                endMove={endMove}
+                endCollect={endCollect}
+            />
             <Paper >
             <Board 
                 board={G.board} 
@@ -150,22 +162,6 @@ export function MerchantsOfDeutscheTable({ctx, G, moves, events, playerID}) {
                 dragHandler={collectIncome}
             />
             </Paper>
-            <ActionBar currentPlayer={ctx.currentPlayer}
-                playerID={playerID}
-                activePlayers={ctx.activePlayers}
-                // scoreCards={this.scoreCards} endTurn={this.endTurn}
-                // trashRoute={this.trashRoute}
-                alertPlayer={alertPlayer}
-                gameover={ctx.gameover}
-                changeStage={changeStage}
-                endStage={endStage}
-                myTurn={myTurn}
-                liberRemaining={player.liberRemaining}
-                incomeRemaining={player.incomeRemaining}
-                displacedRemaining={player.displacedRemaining}
-                endMove={endMove}
-                endCollect={endCollect}
-            />
         </DndProvider>
             <SnackbarDialog playerID={playerID} message={player.message} endMessage={endMessage} />
         </Stack>

@@ -1,4 +1,4 @@
-import { Button, Paper } from '@mui/material';
+import { Button, ButtonGroup, Paper, Tabs, Tab, ToggleButtonGroup } from '@mui/material';
 import React from 'react';
 import "./styles/base.css"
 import SendIcon from '@mui/icons-material/Send';
@@ -14,15 +14,26 @@ import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOu
 import UndoIcon from '@mui/icons-material/Undo';
 export default function ActionBar(props) {
 
+    const [action, setAction] = React.useState("normal");
+
+    const handleAction = (event, newAction) => {
+        // setAction(newAction);
+        props.changeStage(newAction);
+    };
+    
     let message = "Draw a Card";
     let buttons = []
     const hStyle = {
         // position: "fixed",
         backgroundColor: (props.myTurn) ? "gold" : "tan",
         opacity: "100%",
-        bottom: 0,
-        position: 'absolute', top: 830,
-
+        // bottom: 0,
+        // position: 'absolute', top: 830,
+        position: "fixed",
+        top: 0,
+        zIndex: 5,
+        width: "100%"
+        
     }
     let stage = props.activePlayers[props.playerID];
 
@@ -73,16 +84,8 @@ export default function ActionBar(props) {
                 buttons = []
                 break;
             default:
-                message = "Choose an Action: "
-                buttons = [<Button key="collect" variant="contained" color="primary"  onClick={(_) => { props.changeStage("collect") }} 
-                                                                                   endIcon={<PaidOutlinedIcon />}>Collect</Button>,
-                           <Button key="place" variant="contained" color="primary"  endIcon={<PlaceOutlinedIcon />}>Place</Button>,
-                           <Button key="move" variant="contained" color="primary"  onClick={(_) => { props.changeStage("move") }} 
-                                                                                   endIcon={<ZoomOutMapOutlinedIcon />}>Move</Button>,
-                           <Button key="displace" variant="contained" color="primary"  endIcon={<WrongLocationOutlinedIcon />}>Displace</Button>,
-                           <Button key="claim" variant="contained" color="primary" onClick={(_) => { props.changeStage("claim") }} 
-                                                                                    endIcon={<AddCircleOutlineOutlinedIcon />}>Claim</Button>,
-                           <Button key="endTurn" variant="contained" color="primary"  endIcon={<DoneIcon />}>End Turn</Button>,
+                message = ""
+                buttons = [
 
                 ]
                 break;
@@ -95,6 +98,15 @@ export default function ActionBar(props) {
     return (
 
         <Paper class="section" style={hStyle} className="header">
+            <Tabs color="primary" value={stage}
+                onChange={handleAction} aria-label="tabs">
+                <Tab value="collect" label="collect" icon={<PaidOutlinedIcon />} />
+                <Tab value="normal" label="place" icon={<PlaceOutlinedIcon />} />
+                <Tab value="move" label="move"  icon={<ZoomOutMapOutlinedIcon />} />
+                <Tab value="displace" label="displace" icon={<WrongLocationOutlinedIcon />} disabled/>
+                <Tab value="claim" label="claim" icon={<AddCircleOutlineOutlinedIcon />} />
+                <Tab value="endTurn" label="endTurn" icon={<DoneIcon />} />
+            </Tabs>
             <Button disableRipple>{message}</Button>
             {buttons}
         </Paper>

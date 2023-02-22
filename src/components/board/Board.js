@@ -106,7 +106,8 @@ export function Board(props) {
         borderColor: "#987554",
         /* border-color: #664229; */
         borderRadius: 3,
-        opacity: 70
+        position: 'absolute', top: 55,
+        opacity: 70,
     }
 
     return (<Paper className="section" style={oStyle}>
