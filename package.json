@@ -1,7 +1,7 @@
 {
   "name": "merchantsofdeutsche",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "proxy": "http://localhost:3000",
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -10,15 +10,21 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.7",
     "@mui/styles": "^5.11.7",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
     "boardgame.io": "^0.50.2",
-    "esm": "^3.2.25",
+    "koa-static": "^5.0.0",
     "react": "^18.2.0",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
-    "react-dom": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "esm": "^3.2.25",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
@@ -27,7 +33,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "serve": "node -r esm src/server.js"
+    "serve": "node -r esm src/server.js",
+    "publish:npm": "rm -rf dist && mkdir dist && cp src -d dist"
   },
   "eslintConfig": {
     "extends": [
@@ -46,5 +53,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "main": "dist/main.js",
+  "author": "Michael Wagner",
+  "license": "MIT"
 }
