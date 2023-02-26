@@ -1,5 +1,4 @@
 import { Paper, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles'; 
 import React from 'react';
 
 import { cities } from '../../static/cities';
@@ -14,16 +13,8 @@ const data = {
     links: edges
 }
 
-const useStyles = makeStyles(() => ({
-    root: {
-        position: 'absolute',
-        
-    }
-}))
 
 export function Board(props) {
-
-    let classes = useStyles()
 
     // this.cityRefs = {}
     // for (let city in cities) {
