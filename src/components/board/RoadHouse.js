@@ -23,7 +23,7 @@ export default function RoadHouse(props) {
 
 
     const fgStyle = {
-        fill: "#B99976",
+        fill: "#B29700",
         strokeWidth: 2,
         stroke: "black"
     }

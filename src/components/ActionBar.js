@@ -29,7 +29,7 @@ export default function ActionBar(props) {
         opacity: "100%",
         // bottom: 0,
         // position: 'absolute', top: 830,
-        position: "fixed",
+        position: 'sticky',
         top: 0,
         zIndex: 5,
         width: "100%"

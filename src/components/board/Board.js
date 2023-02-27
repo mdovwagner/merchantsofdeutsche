@@ -1,4 +1,4 @@
-import { Paper, Typography } from '@mui/material';
+import { Paper, Stack, Typography } from '@mui/material';
 import React from 'react';
 
 import { cities } from '../../static/cities';
@@ -92,16 +92,17 @@ export function Board(props) {
     //     borderColor: (myStage) ? "black" : "#987554"
     // }
     const oStyle = {
-        background: "tan",
+        background: "#7DAA6A",
         border: 3,
         borderColor: "#987554",
         /* border-color: #664229; */
         borderRadius: 3,
-        position: 'absolute', top: 55,
+        position: 'relative', height: 600, width: "100%",
+        top: -40,
         opacity: 70,
     }
 
-    return (<Paper className="section" style={oStyle}>
+    return (<Stack className="section" style={oStyle}>
         <div>
             {Object.values(edges).map((edge, i) =>
                 <Edge key={"E" + i}
@@ -151,6 +152,6 @@ export function Board(props) {
             )}
         </svg>
         </div> */}
-    </Paper>)
+    </Stack>)
 
 }
