@@ -20,25 +20,6 @@ function setupGame(ctx) {
     const xs = Object.values(cities).map((n) => 2 + (3 - 4) * (1 + 0.5) / 5);
     let board = new BoardModel();
 
-    // Testing
-    board.cities.Groningen.player[0] = 2 // Player 2 has something in Groningen
-    board.cities.Groningen.type[0] = "merchant" // Player 2 has something in Groningen
-    board.cities.Kampen.player[0] = 0  // Player 2 has something in Groningen
-    board.cities.Kampen.type[0] = "trader" // Player 2 has something in Groningen
-    board.cities.Osnabruck.player[0] = 1  // Player 2 has something in Groningen
-    board.cities.Osnabruck.type[0] = "trader" // Player 2 has something in Groningen
-    board.cities.Osnabruck.player[2] = 3  // Player 2 has something in Groningen
-    board.cities.Osnabruck.type[2] = "trader" // Player 2 has something in Groningen
-
-    console.log(whoControls(board, "GroningenEmden"));
-    console.log(whoControls(board, "KampenOsnabruck"));
-
-    board.roads.GroningenEmden.houses.player[1] = 2;
-    board.roads.GroningenEmden.houses.type[1] = "trader";
-    board.roads.GroningenEmden.houses.player[2] = 1;
-    board.roads.GroningenEmden.houses.type[2] = "trader";
-    board.roads.KampenOsnabruck.houses.player[3] = 3;
-    board.roads.KampenOsnabruck.houses.type[3] = "merchant";
     let players = {}
     for (let i = 0; i < 4; i++) {
         players[i] = new PlayerModel()

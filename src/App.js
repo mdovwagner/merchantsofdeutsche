@@ -9,6 +9,7 @@ import React from 'react';
 const MerchantsOfDeutscheClient = Client({
   game: MerchantsOfDeutsche,
   board: MerchantsOfDeutscheTable,
+  numPlayers: 3,
   multiplayer: SocketIO({ server: 'localhost:8000' }),
 });
 
@@ -25,6 +26,9 @@ class App extends React.Component {
           </button>
           <button onClick={() => this.setState({ playerID: "1" })}>
             Player 1
+          </button>
+          <button onClick={() => this.setState({ playerID: "2" })}>
+            Player 2
           </button>
         </div>
       );

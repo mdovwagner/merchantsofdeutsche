@@ -46,7 +46,10 @@ export function Displace({ G, ctx, events }, edge, type, i) {
     G.players[displacedPlayerID].inactive[displacedType] += 1;
     G.players[displacedPlayerID].displacedRemaining = (type === "merchant") ? 3 : 2;
 
-    events.setActivePlayers({ currentPlayer: "wait", others: 'displace' });
+    let values = {}
+    values[displacedPlayerID] = 'displace'
+
+    events.setActivePlayers({ currentPlayer: "wait", value: values});
     
     
 

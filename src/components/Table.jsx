@@ -124,10 +124,11 @@ export function MerchantsOfDeutscheTable({ctx, G, moves, events, playerID}) {
 
     return (
         // <ThemeProvider theme={theme}>
-        <Stack style={{ position: 'relative'}}>
+        <Stack style={{ position: 'absolute', width: "100%"}}>
         <DndProvider backend={HTML5Backend}>
             <ActionBar currentPlayer={ctx.currentPlayer}
                 playerID={playerID}
+                player={player}
                 activePlayers={ctx.activePlayers}
                 // scoreCards={this.scoreCards} endTurn={this.endTurn}
                 // trashRoute={this.trashRoute}

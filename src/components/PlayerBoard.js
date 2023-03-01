@@ -4,6 +4,7 @@ import { getActiones, getIncome, getKeys, getLiber, getPrivilegium } from "../st
 import { ItemTypes } from "../static/constants";
 import { playerColors } from "../static/playerColors";
 import { Trader } from "./board/Trader";
+import './styles/base.css'
 
 
 function drawPlayerRow(array, kind, type, player, currentPlayer) {
@@ -16,12 +17,15 @@ function drawPlayerRow(array, kind, type, player, currentPlayer) {
         stroke: "black",
     }
     return (
-        <svg width={120} height={2 * radius + 4}>
+        <svg width={array.length*40} height={2 * radius + 4}>
         {array.map((k, i) =>
             <g key={"Row" + kind + i}>
                 {(player[kind] < i) ? (
                     <g>
+                    {(type == "trader") ? 
                     <rect x={6.5 + 30 * i} y={6.5} width={length * 2} height={length * 2} style={officeStyle} />
+                            : <ellipse cx={16.5 + 30 * i} cy={16.5} rx={radius} ry={radius} style={officeStyle} />
+                    }
                     <text x={6.5 + length/2 + 30 * i} y={12 + length}>{k}</text>
                     </g>
                 ) : (<text x={6.5 + length / 2 + 30 * i} y={12 + length}>{k}</text>
@@ -66,11 +70,8 @@ export default function PlayerBoard(props) {
 
     return (
         <Stack>
-            <Paper>
-                Score: {player.score},  Actions Remaining = {player.actionsRemaining}
-            </Paper>
-            <hr />
-            <Paper style={{display: 'flex'}} className="ActiveSupply" ref={drop}>
+            <div style={{display: 'flex'}} className="ActiveSupply" ref={drop}>
+                Active Supply: 
                 {activeTraderSupply.map((_, i) => 
                 <div key={"activeT"+i}>
                     <Trader source={"active"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"trader"}currentPlayer={props.currentPlayer} isMyTurn={isMyTurn}/>
@@ -81,7 +82,8 @@ export default function PlayerBoard(props) {
                     <Trader source={"active"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"merchant"}currentPlayer={props.currentPlayer} isMyTurn={isMyTurn}/>
                 </div>
                 )}
-            </Paper>
+            </div>
+            <hr/>
             <Grid className="Mat" container spacing={2} >
                 <Grid item xs={6} style={{ display: 'flex' }}>
                     Keys: {drawPlayerRow(getKeys, "keys", "trader", player, props.currentPlayer)}
@@ -99,7 +101,9 @@ export default function PlayerBoard(props) {
                     Money Bags: {drawPlayerRow(getIncome, "income", "trader", player, props.currentPlayer)}
                     </Grid>
             </Grid>
-            <Paper style={{ display: 'flex' }} className="InactiveSupply" >
+            <hr />
+            <div style={{ display: 'flex' }} className="InactiveSupply" >
+                Inactive Supply: 
                 {inactiveTraderSupply.map((_, i) =>
                 <div key={"inactiveT"+i} onClick={(event) => { props.dragHandler({type: "trader"})}}>
                     <Trader source={"inactive"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"trader"} currentPlayer={props.currentPlayer} isMyTurn={isMyTurn}/>
@@ -110,7 +114,7 @@ export default function PlayerBoard(props) {
                     <Trader source={"inactive"} edge={null} i={i} x={10} y={0} length={10} player={player.id} type={"merchant"} currentPlayer={props.currentPlayer} isMyTurn={isMyTurn}/>
                 </div>
                 )}
-            </Paper>
+            </div>
         </Stack>
     );
 }

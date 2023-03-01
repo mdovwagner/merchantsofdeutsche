@@ -32,7 +32,8 @@ export default function ActionBar(props) {
         position: 'sticky',
         top: 0,
         zIndex: 5,
-        width: "100%"
+        width: "100%",
+        display: "flex"
         
     }
     let stage = props.activePlayers[props.playerID];
@@ -44,7 +45,7 @@ export default function ActionBar(props) {
         } else {
             message = "Wait for your turn...";
             buttons = [<Button key="timer" variant="contained" color="primary" onClick={props.alertPlayer} endIcon={<HourglassEmptyIcon />}>
-                David Green taking too long...
+                Taking too long...
             </Button>]
         }
     } else if (props.activePlayers !== null) {
@@ -98,6 +99,7 @@ export default function ActionBar(props) {
     return (
 
         <Paper class="section" style={hStyle} className="header">
+            <div>
             <Tabs color="primary" value={stage}
                 onChange={handleAction} aria-label="tabs">
                 <Tab value="collect" label="collect" icon={<PaidOutlinedIcon />} />
@@ -109,6 +111,10 @@ export default function ActionBar(props) {
             </Tabs>
             <Button disableRipple>{message}</Button>
             {buttons}
+            </div>
+            <div>
+                Actions Remaining = {props.player.actionsRemaining} | Score = {props.player.score}
+            </div>
         </Paper>
     );
 }
